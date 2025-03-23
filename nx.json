@@ -67,7 +67,24 @@
       "e2eTestRunner": "playwright",
       "linter": "eslint",
       "style": "scss",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "prefix": "ib"
+    },
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "style": "scss",
+      "prefix": "ib",
+      "changeDetection": "OnPush",
+      "projectNameAndRootFormat": "as-provided",
+      "simpleName": true
+    },
+    "@nx/angular:component": {
+      "style": "scss",
+      "changeDetection": "OnPush",
+      "prefix": "ib",
+      "standalone": true
     }
-  }
+  },
+  "defaultProject": "restaurant-admin"
 }

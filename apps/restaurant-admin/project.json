@@ -2,7 +2,7 @@
   "name": "restaurant-admin",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "ib",
   "sourceRoot": "apps/restaurant-admin/src",
   "tags": [],
   "targets": {
