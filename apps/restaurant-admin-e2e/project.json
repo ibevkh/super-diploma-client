@@ -1,0 +1,9 @@
+{
+  "name": "restaurant-admin-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/restaurant-admin-e2e/src",
+  "implicitDependencies": ["restaurant-admin"],
+  "// targets": "to see all targets run: nx show project restaurant-admin-e2e --web",
+  "targets": {}
+}
