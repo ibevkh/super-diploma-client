@@ -1,0 +1,37 @@
+<mat-sidenav-container>
+  <mat-sidenav class="main-sidenav"
+               opened
+               mode="side"
+               fixedTopGap="0"
+               fixedInViewport="true"
+               fixedBottomGap="0"
+               disableClose="true"
+
+  >
+    <ol>
+      <a mat-list-item
+         class="menu-item"
+         routerLink="/"
+         routerLinkActive="selected-menu-item"
+         [routerLinkActiveOptions]="{ exact: true }"
+         #rla="routerLinkActive"
+         [activated]="rla.isActive"
+      >
+        <span matListItemTitle>Домівка</span>
+      </a>
+      <a mat-list-item
+         class="menu-item"
+         routerLink="shop-items"
+         routerLinkActive="selected-menu-item"
+         [routerLinkActiveOptions]="{ exact: true }"
+         #rla="routerLinkActive"
+         [activated]="rla.isActive"
+      >
+        <span matListItemTitle>Товари</span>
+      </a>
+    </ol>
+  </mat-sidenav>
+  <mat-sidenav-content class="main-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

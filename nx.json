@@ -76,7 +76,6 @@
       "style": "scss",
       "prefix": "ib",
       "changeDetection": "OnPush",
-      "projectNameAndRootFormat": "as-provided",
       "simpleName": true
     },
     "@nx/angular:component": {

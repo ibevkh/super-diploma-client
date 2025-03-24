@@ -30,7 +30,7 @@ export default [
             },
             {
               'sourceTag': 'type:app',
-              'onlyDependOnLibsWithTags': ['type:feature']
+              'onlyDependOnLibsWithTags': ['type:feature', 'type:ui']
             },
             {
               'sourceTag': 'type:feature',
