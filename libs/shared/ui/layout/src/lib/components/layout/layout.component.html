@@ -29,9 +29,30 @@
       >
         <span matListItemTitle>Товари</span>
       </a>
+      <a mat-list-item
+         class="menu-item"
+         routerLink="shop-items/1"
+         routerLinkActive="selected-menu-item"
+         [routerLinkActiveOptions]="{ exact: true }"
+         #rla="routerLinkActive"
+         [activated]="rla.isActive"
+      >
+        <span matListItemTitle>Товари #1</span>
+      </a>
     </ol>
+
   </mat-sidenav>
+<!--  <mat-sidenav-content class="main-content">-->
+<!--    <div style="-->
+<!--      border: red solid 1px;-->
+<!--      height: 100%;-->
+<!--      width: 100%;-->
+<!--      background: lightcyan;-->
+<!--      display: flex;-->
+<!--">-->
   <mat-sidenav-content class="main-content">
-    <router-outlet></router-outlet>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

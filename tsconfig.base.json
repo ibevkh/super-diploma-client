@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ib/feat/shop-items": ["libs/features/shop-items/src/index.ts"],
       "@ib/ui/layout": ["libs/shared/ui/layout/src/index.ts"]
     }
   },

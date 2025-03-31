@@ -1,0 +1,62 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Shop Items Grid</span>
+    <span class="example-spacer"></span>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <mat-form-field>
+      <mat-label>Категорії</mat-label>
+      <mat-select
+        [(ngModel)]="filter().categoryId"
+        (ngModelChange)="onFilterChange()"
+      >
+        @for (item of datasources.categories(); track item.id) {
+          <mat-option [value]="item.id">{{item.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Стан</mat-label>
+      <mat-select
+        [(ngModel)]="filter().state"
+        (ngModelChange)="onFilterChange()"
+      >
+        @for (item of datasources.states(); track item.id) {
+          <mat-option [value]="item.id">{{item.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<section>
+  <div>
+    <mat-table [dataSource]="items()" class="mat-elevation-z8">
+      @for (conf of columnsConfig; track conf.columnName) {
+        <ng-container matColumnDef="{{conf.columnName}}">
+          <mat-header-cell *matHeaderCellDef> {{conf.headerName}} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[conf.columnName]}} </mat-cell>
+        </ng-container>
+      }
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onGridClick(row)" ></mat-row>
+    </mat-table>
+  </div>
+  @if (isPreviewVisible()) {
+    <div class="preview">
+      <mat-card>
+        <mat-card-header>
+          {{preview().name}}
+        </mat-card-header>
+        <mat-card-content>
+          <span>{{preview().description}}</span>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-raised-button routerLink="{{preview().id}}">Редагувати</a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  }
+
+</section>

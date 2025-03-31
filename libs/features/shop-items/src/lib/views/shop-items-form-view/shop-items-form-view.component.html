@@ -1,0 +1,10 @@
+<p>shop-items-form-view works!</p>
+<h4>Basic mat-select</h4>
+<mat-form-field>
+  <mat-label>Category food</mat-label>
+  <mat-select>
+    @for (category of categories; track category) {
+      <mat-option [value]="category.name">{{category.value}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
