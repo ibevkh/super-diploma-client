@@ -9,6 +9,7 @@ import {
   ShopItemPreview,
 } from '../models';
 import { ShopItemApiService } from './shop-items-api.service';
+import { ShopItemsMappingService } from './shop-items-mapping.service';
 
 type ShopItemState = {
   items: ShopItemListItem[];
@@ -18,7 +19,7 @@ type ShopItemState = {
   gridFilter: ShopItemGridFilter;
   isGridLoading: boolean;
 
-  filterDatasources: ShopItemGridDatasource;
+  gridDatasources: ShopItemGridDatasource;
 
   selectedItemId: number | undefined;
 
@@ -45,7 +46,7 @@ const initialState: ShopItemState = {
   gridFilter: { pageNumber: 0, pageSize: 10 },
   isGridLoading: false,
 
-  filterDatasources: {
+  gridDatasources: {
     states: [],
     categories: [],
   },
@@ -75,25 +76,34 @@ export const ShopItemStore = signalStore(
   withState(initialState),
   withMethods((store) => {
     const _apiService = inject(ShopItemApiService);
+    const _mapper = inject(ShopItemsMappingService);
 
     const loadFilteredList = async () => {
       patchState(store, { isGridLoading: true });
 
-      const paginatedResponse = await _apiService.getFilteredList(
-        store.gridFilter()
-      );
+      const filter = _mapper.mapShopItemGridFilterToDto(store.gridFilter());
+      const dto = await _apiService.getFilteredList(filter);
+      const response = _mapper.mapPaginatedResponseFromDto(dto);
+
+      // const response = _mapper.mapPaginatedResponseFromDto(
+      //   await _apiService.getFilteredList(
+      //     _mapper.mapShopItemGridFilterToDto(store.gridFilter())
+      //   )
+      // );
+
       patchState(store, {
-        items: paginatedResponse.data,
-        currentPageNumber: paginatedResponse.pageNumber,
-        currentPageSize: paginatedResponse.pageSize,
-        totalQty: paginatedResponse.totalQty,
+        items: response.data,
+        currentPageNumber: response.pageNumber,
+        currentPageSize: response.pageSize,
+        totalQty: response.totalQty,
         isGridLoading: false,
       });
     };
 
-    const loadFilterDatasources = async () => {
-      const filterDatasources = await _apiService.getFilterDatasources();
-      patchState(store, { filterDatasources });
+    const loadGridDatasources = async () => {
+      const dto = await _apiService.getGridDatasources();
+      const gridDatasources = _mapper.mapShopItemGridDatasourceFromDto(dto);
+      patchState(store, { gridDatasources });
     };
     /*****************/
     // const loadPreviewById = async (id: number) => {
@@ -102,7 +112,8 @@ export const ShopItemStore = signalStore(
     // };
 
     const loadPreviewById = async (id: number) => {
-      const preview = await _apiService.getPreviewById(id);
+      const dto = await _apiService.getPreviewById(id);
+      const preview = _mapper.mapShopItemPreviewFromDto(dto);
       patchState(store, { selectedItemId: id, preview });
     };
 
@@ -111,8 +122,9 @@ export const ShopItemStore = signalStore(
     //   patchState(store, { form });
     // };
 
-    const loadById = async (id: number) => {
-      const form = await _apiService.getById(id);
+    const loadItemById = async (id: number) => {
+      const dto = await _apiService.getItemById(id);
+      const form = _mapper.mapShopItemFormFromDto(dto);
       patchState(store, { selectedItemId: id, form });
     };
 
@@ -126,12 +138,14 @@ export const ShopItemStore = signalStore(
     // }
 
     const loadFormDatasources = async () => {
-      const formDatasource = await _apiService.getFormDatasources();
+      const dto = await _apiService.getFormDatasources();
+      const formDatasource = _mapper.mapShopItemFormDatasourceFromDto(dto);
       patchState(store, { formDatasource });
     };
 
     const createOrUpdateItem = async () => {
-      await _apiService.createOrUpdateShopItem(store.form());
+      const item = _mapper.mapShopItemFormToDto(store.form());
+      await _apiService.createOrUpdateShopItem(item);
       patchState(store, { form: undefined });
     };
 
@@ -149,7 +163,6 @@ export const ShopItemStore = signalStore(
 
     const resetForm = async () => {
       patchState(store, { form: {...initialForm} })
-      console.log("store.resetForm()", store.form(), initialForm);
     };
 
     const setPageNumber = (pageNumber: number) => {
@@ -163,9 +176,9 @@ export const ShopItemStore = signalStore(
     /*****************/
     return {
       loadFilteredList,
-      loadFilterDatasources,
+      loadGridDatasources,
       loadPreviewById,
-      loadById,
+      loadItemById,
       loadFormDatasources,
       createOrUpdateItem,
       deleteItem,

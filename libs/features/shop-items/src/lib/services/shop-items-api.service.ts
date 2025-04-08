@@ -7,21 +7,12 @@ import {
   ShopItemFormDatasourceDto,
   ShopItemFormDto,
   ShopItemListItemDto,
-  ShopItemPreviewDto,
+  ShopItemPreviewDto, ShopItemGridFilterDto
 } from '../dtos';
-import {
-  ShopItemGridDatasource, ShopItemForm, ShopItemFormDatasource,
-  ShopItemGridFilter,
-  ShopItemListItem,
-  ShopItemPreview
-} from '../models';
-import { PaginatedResponse } from '../models/paginated-response';
-import { ShopItemsMappingService } from './shop-items-mapping.service';
 
 @Injectable({ providedIn: 'root' })
 export class ShopItemApiService {
   readonly #http = inject(HttpClient);
-  readonly #mapper = inject(ShopItemsMappingService);
 
   readonly #baseUrl = 'https://localhost:7076/api/shop-items';
   readonly #filteredGridUrl = `${this.#baseUrl}/filtered-grid`;
@@ -29,64 +20,50 @@ export class ShopItemApiService {
   readonly #preview = `${this.#baseUrl}/preview`;
   readonly #formDatasource = `${this.#baseUrl}/form-datasources`;
 
-  async getFilteredList(filter: ShopItemGridFilter): Promise<PaginatedResponse<ShopItemListItem[]>> {
-    const filterDto = this.#mapper.mapShopItemGridFilterToDto(filter);
-
-    return this.#mapper.mapPaginatedResponseFromDto(
-      await firstValueFrom(
-        this.#http.post<PaginatedResponseDto<ShopItemListItemDto[]>>(
-          this.#filteredGridUrl,
-          filterDto
-        )
+  async getFilteredList(
+    filter: ShopItemGridFilterDto
+  ): Promise<PaginatedResponseDto<ShopItemListItemDto[]>> {
+    return await firstValueFrom(
+      this.#http.post<PaginatedResponseDto<ShopItemListItemDto[]>>(
+        this.#filteredGridUrl,
+        filter
       )
     );
   }
 
-  async getFilterDatasources(): Promise<ShopItemGridDatasource> {
-    return this.#mapper.mapShopItemGridDatasourceFromDto(
-      await firstValueFrom(
-        this.#http.get<ShopItemGridDatasourceDto>(this.#gridDataSource)
-      )
+  async getGridDatasources(): Promise<ShopItemGridDatasourceDto> {
+    return await firstValueFrom(
+      this.#http.get<ShopItemGridDatasourceDto>(this.#gridDataSource)
     );
   }
 
-  async getPreviewById(id: number): Promise<ShopItemPreview> {
-    const dto = await firstValueFrom(
+  async getPreviewById(id: number): Promise<ShopItemPreviewDto> {
+    return await firstValueFrom(
       this.#http.get<ShopItemPreviewDto>(`${this.#preview}/${id}`)
     );
-
-    return this.#mapper.mapShopItemPreviewFromDto(dto);
   }
 
-  async getById(id: number): Promise<ShopItemForm> {
-    const dto = await firstValueFrom(
+  async getItemById(id: number): Promise<ShopItemFormDto> {
+    return await firstValueFrom(
       this.#http.get<ShopItemFormDto>(`${this.#baseUrl}/${id}`)
     );
-
-    return this.#mapper.mapShopItemFormFromDto(dto);
   }
 
-  async getFormDatasources(): Promise<ShopItemFormDatasource> {
-    const dto = await firstValueFrom(
+  async getFormDatasources(): Promise<ShopItemFormDatasourceDto> {
+    return await firstValueFrom(
       this.#http.get<ShopItemFormDatasourceDto>(this.#formDatasource)
     );
-
-    return this.#mapper.mapShopItemFormDatasourceFromDto(dto);
   }
 
-  async createOrUpdateShopItem(item: ShopItemForm): Promise<ShopItemForm> {
-    const dto = this.#mapper.mapShopItemFormToDto(item);
-    const responseDto = await firstValueFrom(
-      this.#http.post<ShopItemFormDto>(this.#baseUrl, dto)
+  async createOrUpdateShopItem(item: ShopItemFormDto): Promise<ShopItemFormDto> {
+    return await firstValueFrom(
+      this.#http.post<ShopItemFormDto>(this.#baseUrl, item)
     );
-    return this.#mapper.mapShopItemFormFromDto(responseDto);
   }
 
-  async deleteShopItem(id: number): Promise<ShopItemForm> {
-    const responseDto = await firstValueFrom(
+  async deleteShopItem(id: number): Promise<ShopItemFormDto> {
+    return await firstValueFrom(
       this.#http.delete<ShopItemFormDto>(`${this.#baseUrl}/${id}`)
     );
-
-    return this.#mapper.mapShopItemFormFromDto(responseDto);
   }
 }

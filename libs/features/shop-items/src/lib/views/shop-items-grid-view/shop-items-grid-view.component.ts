@@ -21,7 +21,6 @@ import {
 } from '@angular/material/table';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
-import { patchState } from '@ngrx/signals';
 import { ShopItemListItem } from '../../models';
 import { ShopItemStore } from '../../services';
 import { MatFormField, MatLabel } from '@angular/material/input';
@@ -71,7 +70,7 @@ export class ShopItemsGridViewComponent implements OnInit {
   readonly #router = inject(Router);
 
   items = this.#store.items;
-  datasources = this.#store.filterDatasources;
+  datasources = this.#store.gridDatasources;
   preview = this.#store.preview;
   filter = this.#store.gridFilter;
 
@@ -97,7 +96,7 @@ export class ShopItemsGridViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.#store.loadFilterDatasources();
+    this.#store.loadGridDatasources();
     this.#store.loadFilteredList();
   }
 

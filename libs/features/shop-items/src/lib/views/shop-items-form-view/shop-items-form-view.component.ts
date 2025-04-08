@@ -68,7 +68,7 @@ export class ShopItemsFormViewComponent {
     if (this.#route.snapshot.paramMap.has('id')) {
       console.log(this.#route.snapshot.paramMap);
       const id = Number(this.#route.snapshot.paramMap.get('id')); //ESLint: 'id' is assigned a value but never used.
-      this.#store.loadById(id);
+      this.#store.loadItemById(id);
     } else {
       console.log('new transaction');
       this.#store.resetForm();
