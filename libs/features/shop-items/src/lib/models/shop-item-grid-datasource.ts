@@ -1,6 +1,6 @@
 import { DatasourceItem } from './datasource-item';
 
-export type ShopItemFilterDatasource = {
+export type ShopItemGridDatasource = {
   categories: DatasourceItem[];
   states: DatasourceItem[];
 }

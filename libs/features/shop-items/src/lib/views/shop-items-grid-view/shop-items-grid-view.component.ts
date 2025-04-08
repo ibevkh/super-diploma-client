@@ -1,24 +1,26 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, computed,
   inject,
-  OnInit, signal
+  OnInit,
+  signal
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader } from '@angular/material/card';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {
   MatCell,
   MatCellDef,
-  MatColumnDef,
+  MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef,
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
   MatTable
 } from '@angular/material/table';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { patchState } from '@ngrx/signals';
 import { ShopItemListItem } from '../../models';
 import { ShopItemStore } from '../../services';
@@ -52,6 +54,12 @@ import { MatOption, MatSelect } from '@angular/material/select';
     MatCardActions,
     MatAnchor,
     RouterLink,
+    MatButton,
+    MatPaginatorModule,
+    MatFooterCellDef,
+    MatFooterCell,
+    MatFooterRow,
+    MatFooterRowDef,
   ],
   templateUrl: './shop-items-grid-view.component.html',
   styleUrl: './shop-items-grid-view.component.scss',
@@ -60,6 +68,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 })
 export class ShopItemsGridViewComponent implements OnInit {
   readonly #store = inject(ShopItemStore);
+  readonly #router = inject(Router);
 
   items = this.#store.items;
   datasources = this.#store.filterDatasources;
@@ -75,6 +84,13 @@ export class ShopItemsGridViewComponent implements OnInit {
     { columnName: 'categoryName', headerName: 'Категорія' },
     { columnName: 'categoryDescription', headerName: 'Опис категорії' },
   ];
+
+  paginatorSettings = computed(() => ({
+    totalQty: this.#store.totalQty(),
+    pageSize: this.#store.currentPageSize(),
+    pageSizeOptions: [10, 20, 50, 100],
+    pageNumber: this.#store.currentPageNumber(),
+  }));
 
   get displayedColumns() {
     return this.columnsConfig.map((item) => item.columnName);
@@ -92,5 +108,20 @@ export class ShopItemsGridViewComponent implements OnInit {
   onGridClick(item: ShopItemListItem) {
     this.#store.loadPreviewById(item.id);
     this.isPreviewVisible.set(true);
+  }
+
+  onDeleteClick(id: number) {
+    this.#store.deleteItem(id);
+    this.isPreviewVisible.set(false);
+  }
+
+  async onCreateClick() {
+    await this.#router.navigate(['shop-items', 'new']);
+  }
+
+  async onPageChange(e: PageEvent) {
+    this.#store.setPageNumber(e.pageIndex)
+    this.#store.setPageSize(e.pageSize);
+    await this.#store.loadFilteredList();
   }
 }

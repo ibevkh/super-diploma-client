@@ -17,7 +17,9 @@
     "@angular/platform-browser-dynamic": "~19.2.0",
     "@angular/router": "~19.2.0",
     "@ngrx/signals": "^19.0.1",
+    "ngx-vest-forms": "^1.1.0",
     "rxjs": "~7.8.0",
+    "vest": "^5.4.6",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import { DatasourceItem } from './datasource-item';
 
-export interface ShopItemFormDatasource {
+export type ShopItemFormDatasource = {
   categories: DatasourceItem[];
   states: DatasourceItem[];
 }

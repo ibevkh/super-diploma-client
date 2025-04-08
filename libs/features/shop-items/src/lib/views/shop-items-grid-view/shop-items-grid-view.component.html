@@ -26,6 +26,7 @@
         }
       </mat-select>
     </mat-form-field>
+    <button mat-flat-button (click)="onCreateClick()">Створити</button>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -41,6 +42,18 @@
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onGridClick(row)" ></mat-row>
+
+      <ng-container matColumnDef="paginator">
+        <mat-footer-cell *matFooterCellDef [attr.colspan]="100">
+          <mat-paginator (page)="onPageChange($event)"
+                         [length]="paginatorSettings().totalQty"
+                         [pageSize]="paginatorSettings().pageSize"
+                         [pageSizeOptions]="paginatorSettings().pageSizeOptions || []"
+                         [pageIndex]="paginatorSettings().pageNumber"
+          ></mat-paginator>
+        </mat-footer-cell>
+      </ng-container>
+      <mat-footer-row *matFooterRowDef="['paginator']; sticky: true"></mat-footer-row>
     </mat-table>
   </div>
   @if (isPreviewVisible()) {
@@ -54,6 +67,7 @@
         </mat-card-content>
         <mat-card-actions>
           <a mat-raised-button routerLink="{{preview().id}}">Редагувати</a>
+          <button mat-raised-button (click)="onDeleteClick(preview().id)">Видалити</button>
         </mat-card-actions>
       </mat-card>
     </div>

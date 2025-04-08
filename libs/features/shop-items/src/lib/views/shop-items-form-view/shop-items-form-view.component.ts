@@ -1,12 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatFormField } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatError } from '@angular/material/form-field';
+import { MatFormField, MatInput } from '@angular/material/input';
 import { MatLabel, MatOption, MatSelect } from '@angular/material/select';
-
-interface Category {
-  name: string;
-  value: string;
-}
+import { vestForms } from 'ngx-vest-forms';
+import { shopItemFormShape } from '../../models';
+import { ShopItemStore } from '../../services';
+import { ActivatedRoute, Router } from '@angular/router';
+import { createShopItemValidationConfig, createShopItemValidationSuite } from '../../validation/shop-items-form-view.validations';
 
 @Component({
   selector: 'ib-shop-items-form-view',
@@ -15,8 +23,12 @@ interface Category {
     MatFormField,
     MatFormField,
     MatLabel,
-    MatSelect,
+    vestForms,
+    MatInput,
+    MatError,
+    MatButtonModule,
     MatOption,
+    MatSelect,
   ],
   templateUrl: './shop-items-form-view.component.html',
   styleUrl: './shop-items-form-view.component.scss',
@@ -24,8 +36,57 @@ interface Category {
   standalone: true,
 })
 export class ShopItemsFormViewComponent {
-  categories: Category[] = [
-    { name: 'first category',value: 'first category'  },
-    { name: 'second category',value: 'second category'  },
-  ];
+  readonly #route = inject(ActivatedRoute);
+  readonly #router = inject(Router);
+  readonly #store = inject(ShopItemStore);
+
+  readonly formValue = this.#store.form;
+  readonly datasources = this.#store.formDatasource;
+  protected readonly formValid = signal<boolean>(false);
+  protected readonly loading = signal<boolean>(false);
+  protected readonly errors = signal<Record<string, string>>({});
+  protected readonly suite = createShopItemValidationSuite();
+  protected readonly shape = shopItemFormShape;
+  protected readonly validationConfig = createShopItemValidationConfig();
+  readonly #viewModel = computed(() => {
+    return {
+      formValue: this.formValue(),
+      datasources: this.datasources(),
+      errors: this.errors(),
+      formValid: this.formValid(),
+      loading: this.loading(),
+      isNew: this.formValue().id === undefined,
+    };
+  });
+
+  protected get vm() {
+    return this.#viewModel();
+  }
+
+  constructor() {
+    this.#store.loadFormDatasources();
+    if (this.#route.snapshot.paramMap.has('id')) {
+      console.log(this.#route.snapshot.paramMap);
+      const id = Number(this.#route.snapshot.paramMap.get('id')); //ESLint: 'id' is assigned a value but never used.
+      this.#store.loadById(id);
+    } else {
+      console.log('new transaction');
+      this.#store.resetForm();
+    }
+  }
+
+  async onSubmit() {
+    if (this.formValid()) {
+      console.log('Submitting...', this.formValue());
+      await this.#store.createOrUpdateItem();
+      await this.#store.resetForm();
+      await this.#router.navigate(["shop-items"]);
+    } else {
+      console.log('Not valid...', this.errors(), this.formValue());
+    }
+  }
+
+  async onCancelClick() {
+    await this.#router.navigate(["shop-items"]);
+  }
 }

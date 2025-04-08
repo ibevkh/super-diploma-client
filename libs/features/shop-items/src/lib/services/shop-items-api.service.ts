@@ -3,14 +3,14 @@ import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import {
   PaginatedResponseDto,
-  ShopItemFilterDatasourceDto,
+  ShopItemGridDatasourceDto,
   ShopItemFormDatasourceDto,
   ShopItemFormDto,
   ShopItemListItemDto,
   ShopItemPreviewDto,
 } from '../dtos';
 import {
-  ShopItemFilterDatasource, ShopItemForm, ShopItemFormDatasource,
+  ShopItemGridDatasource, ShopItemForm, ShopItemFormDatasource,
   ShopItemGridFilter,
   ShopItemListItem,
   ShopItemPreview
@@ -25,7 +25,7 @@ export class ShopItemApiService {
 
   readonly #baseUrl = 'https://localhost:7076/api/shop-items';
   readonly #filteredGridUrl = `${this.#baseUrl}/filtered-grid`;
-  readonly #filteredDataSource = `${this.#baseUrl}/filter-datasources`;
+  readonly #gridDataSource = `${this.#baseUrl}/grid-datasources`;
   readonly #preview = `${this.#baseUrl}/preview`;
   readonly #formDatasource = `${this.#baseUrl}/form-datasources`;
 
@@ -42,10 +42,10 @@ export class ShopItemApiService {
     );
   }
 
-  async getFilterDatasources(): Promise<ShopItemFilterDatasource> {
-    return this.#mapper.mapShopItemFilterDatasourceFromDto(
+  async getFilterDatasources(): Promise<ShopItemGridDatasource> {
+    return this.#mapper.mapShopItemGridDatasourceFromDto(
       await firstValueFrom(
-        this.#http.get<ShopItemFilterDatasourceDto>(this.#filteredDataSource)
+        this.#http.get<ShopItemGridDatasourceDto>(this.#gridDataSource)
       )
     );
   }
@@ -72,5 +72,21 @@ export class ShopItemApiService {
     );
 
     return this.#mapper.mapShopItemFormDatasourceFromDto(dto);
+  }
+
+  async createOrUpdateShopItem(item: ShopItemForm): Promise<ShopItemForm> {
+    const dto = this.#mapper.mapShopItemFormToDto(item);
+    const responseDto = await firstValueFrom(
+      this.#http.post<ShopItemFormDto>(this.#baseUrl, dto)
+    );
+    return this.#mapper.mapShopItemFormFromDto(responseDto);
+  }
+
+  async deleteShopItem(id: number): Promise<ShopItemForm> {
+    const responseDto = await firstValueFrom(
+      this.#http.delete<ShopItemFormDto>(`${this.#baseUrl}/${id}`)
+    );
+
+    return this.#mapper.mapShopItemFormFromDto(responseDto);
   }
 }

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import {
-  ShopItemFilterDatasource,
+  ShopItemGridDatasource,
   ShopItemForm,
   ShopItemFormDatasource,
   ShopItemGridFilter,
@@ -18,15 +18,24 @@ type ShopItemState = {
   gridFilter: ShopItemGridFilter;
   isGridLoading: boolean;
 
-  filterDatasources: ShopItemFilterDatasource;
+  filterDatasources: ShopItemGridDatasource;
 
-  selectedItemId?: number;
+  selectedItemId: number | undefined;
 
   /*****************/
   preview: ShopItemPreview;
   form: ShopItemForm;
   formDatasource: ShopItemFormDatasource;
 };
+
+const initialForm: ShopItemForm = {
+  id: 0,
+  name: '',
+  description: '',
+  image: 'test',
+  state: undefined,
+  categoryId: undefined,
+}
 
 const initialState: ShopItemState = {
   items: [],
@@ -53,14 +62,7 @@ const initialState: ShopItemState = {
     image: '',
   },
 
-  form: {
-    id: 0,
-    name: '',
-    description: '',
-    state: 0,
-    image: '',
-    categoryId: 0,
-  },
+  form: {...initialForm},
 
   formDatasource: {
     categories: [],
@@ -94,19 +96,68 @@ export const ShopItemStore = signalStore(
       patchState(store, { filterDatasources });
     };
     /*****************/
+    // const loadPreviewById = async (id: number) => {
+    //   const preview = await _apiService.getPreviewById(id);
+    //   patchState(store, { preview });
+    // };
+
     const loadPreviewById = async (id: number) => {
       const preview = await _apiService.getPreviewById(id);
-      patchState(store, { preview });
+      patchState(store, { selectedItemId: id, preview });
     };
+
+    // const loadById = async (id: number) => {
+    //   const form = await _apiService.getById(id);
+    //   patchState(store, { form });
+    // };
 
     const loadById = async (id: number) => {
       const form = await _apiService.getById(id);
-      patchState(store, { form });
+      patchState(store, { selectedItemId: id, form });
     };
+
+    // const deleteItem = async () => {
+    //   if (store.selectedItemId() === undefined) return;
+    //   await _apiService.deleteShopItem(store.selectedItemId() as number);
+    //   patchState(store, {
+    //     selectedItemId: undefined,
+    //   });
+    //   await loadFilteredList();
+    // }
 
     const loadFormDatasources = async () => {
       const formDatasource = await _apiService.getFormDatasources();
       patchState(store, { formDatasource });
+    };
+
+    const createOrUpdateItem = async () => {
+      await _apiService.createOrUpdateShopItem(store.form());
+      patchState(store, { form: undefined });
+    };
+
+    const deleteItem = async (id: number) => {
+      await _apiService.deleteShopItem(id);
+      patchState(store, {
+        selectedItemId: undefined,
+      });
+      await loadFilteredList();
+    }
+
+    // const selectItem = async (id: number) => {
+    //   patchState(store, { selectedItemId: id });
+    // }
+
+    const resetForm = async () => {
+      patchState(store, { form: {...initialForm} })
+      console.log("store.resetForm()", store.form(), initialForm);
+    };
+
+    const setPageNumber = (pageNumber: number) => {
+      patchState(store, { gridFilter: { ...store.gridFilter(), pageNumber } });
+    };
+
+    const setPageSize = (pageSize: number) => {
+      patchState(store, { gridFilter: { ...store.gridFilter(), pageSize } });
     };
 
     /*****************/
@@ -116,6 +167,11 @@ export const ShopItemStore = signalStore(
       loadPreviewById,
       loadById,
       loadFormDatasources,
+      createOrUpdateItem,
+      deleteItem,
+      resetForm,
+      setPageNumber,
+      setPageSize,
     };
   })
 );

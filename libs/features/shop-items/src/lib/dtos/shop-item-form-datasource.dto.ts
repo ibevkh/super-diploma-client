@@ -1,6 +1,6 @@
 import { DatasourceItemDto } from './datasource-item.dto';
 
-export interface ShopItemFormDatasourceDto {
+export type ShopItemFormDatasourceDto = {
   categories: DatasourceItemDto[];
   states: DatasourceItemDto[];
 }

@@ -4,6 +4,6 @@ import { ShopItemsGridViewComponent } from './views/shop-items-grid-view/shop-it
 
 export const shopItemsRoutes: Route[] = [
   { path: '', component: ShopItemsGridViewComponent },
-  { path: ':id', component: ShopItemsFormViewComponent },
   { path: 'new', component: ShopItemsFormViewComponent },
+  { path: ':id', component: ShopItemsFormViewComponent },
 ];

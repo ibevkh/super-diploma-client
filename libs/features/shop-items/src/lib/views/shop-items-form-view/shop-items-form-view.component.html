@@ -1,10 +1,60 @@
-<p>shop-items-form-view works!</p>
-<h4>Basic mat-select</h4>
-<mat-form-field>
-  <mat-label>Category food</mat-label>
-  <mat-select>
-    @for (category of categories; track category) {
-      <mat-option [value]="category.name">{{category.value}}</mat-option>
-    }
-  </mat-select>
-</mat-form-field>
+<header class="header">
+  @if (vm.isNew) {
+    <h3>Нова транзакція</h3>
+  } @else {
+    <h3>Транзакція {{ vm.formValue.id }}</h3>
+  }
+</header>
+
+<div>
+  <form scVestForm
+        (ngSubmit)="onSubmit()"
+        [formValue]="vm.formValue"
+        [validateRootForm]="true"
+        [formShape]="shape"
+        [suite]="suite"
+        [validationConfig]="validationConfig"
+        (validChange)="formValid.set($event || false)"
+        (errorsChange)="errors.set($event)">
+
+    <mat-form-field>
+      <mat-label>Ім'я</mat-label>
+      <input matInput [(ngModel)]="vm.formValue.name" name="name" type="text">
+      <mat-error>{{ vm.errors['name'] || '' }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Опис</mat-label>
+      <input matInput [(ngModel)]="vm.formValue.description" name="description" type="text">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Стан</mat-label>
+      <mat-select
+        [(ngModel)]="vm.formValue.state" name="state">
+        @for (item of datasources.states(); track item.id) {
+          <mat-option [value]="item.id">{{item.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Категорія</mat-label>
+      <mat-select
+        [(ngModel)]="vm.formValue.categoryId" name="categoryId">
+        @for (item of datasources.categories(); track item.id) {
+          <mat-option [value]="item.id">{{item.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+    <br>
+    <br>
+
+    <button mat-button (click)="onCancelClick()" type="button">Скасувати</button>
+
+    <button mat-stroked-button color="primary" type="submit">Зберігти</button>
+
+  </form>
+</div>

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
   PaginatedResponseDto,
-  ShopItemFilterDatasourceDto, ShopItemFormDatasourceDto, ShopItemFormDto,
+  ShopItemGridDatasourceDto, ShopItemFormDatasourceDto, ShopItemFormDto,
   ShopItemGridFilterDto,
   ShopItemListItemDto,
   ShopItemPreviewDto
 } from '../dtos';
 import {
-  ShopItemFilterDatasource,
+  ShopItemGridDatasource,
   ShopItemForm, ShopItemFormDatasource,
   ShopItemGridFilter,
   ShopItemListItem,
@@ -34,8 +34,8 @@ export class ShopItemsMappingService {
     } as PaginatedResponse<ShopItemListItemDto[]>
   }
 
-  mapShopItemFilterDatasourceFromDto(dto: ShopItemFilterDatasourceDto): ShopItemFilterDatasource{
-    return dto as ShopItemFilterDatasource;
+  mapShopItemGridDatasourceFromDto(dto: ShopItemGridDatasourceDto): ShopItemGridDatasource{
+    return dto as ShopItemGridDatasource;
   };
 
   mapShopItemPreviewFromDto(dto: ShopItemPreviewDto ): ShopItemPreview {
@@ -53,9 +53,4 @@ export class ShopItemsMappingService {
   mapShopItemFormDatasourceFromDto(dto: ShopItemFormDatasourceDto): ShopItemFormDatasource {
     return dto as ShopItemFormDatasource;
   }
-
-  mapShopItemFormDatasourceToDto(filter: ShopItemFormDatasource): ShopItemFormDatasourceDto {
-    return filter as ShopItemFormDatasourceDto;
-  }
-
 }
