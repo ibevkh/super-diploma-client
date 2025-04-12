@@ -15,8 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ib/feat/admin-layout": ["libs/features/admin-layout/src/index.ts"],
       "@ib/feat/shop-items": ["libs/features/shop-items/src/index.ts"],
-      "@ib/ui/layout": ["libs/shared/ui/layout/src/index.ts"]
+      "@ib/ui/container": ["libs/shared/ui/container/src/index.ts"],
+      "@ib/ui/grid": ["libs/shared/ui/grid/src/index.ts"],
+      "@ib/ui/layout": ["libs/shared/ui/layout/src/index.ts"],
+      "@ib/ui/width": ["libs/shared/ui/width/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

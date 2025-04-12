@@ -1,0 +1,16 @@
+:host * {
+  transition: all 200ms ease-in-out;
+}
+
+.menu-item {
+  border-left: 5px solid rgba(0, 0, 0, 0);
+}
+
+.selected-menu-item {
+  border-left-color: var(--primary-color);
+  --mat-list-active-indicator-color: rgba(255, 255, 255, 0.05);
+}
+
+.indented {
+  --mat-list-list-item-leading-icon-start-space: 36px;
+}

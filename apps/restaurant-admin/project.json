@@ -33,7 +33,10 @@
           "@angular/material/prebuilt-themes/azure-blue.css",
           "apps/restaurant-admin/src/styles.scss"
         ],
-        "scripts": []
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/shared/ui/stylesheets"]
+        }
       },
       "configurations": {
         "production": {

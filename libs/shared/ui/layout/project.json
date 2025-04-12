@@ -2,9 +2,9 @@
   "name": "layout",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/ui/layout/src",
-  "prefix": "ib",
+  "prefix": "ab",
   "projectType": "library",
-  "tags": ["scope:shared", "type:ui"],
+  "tags": ["type:ui", "scope:shared"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

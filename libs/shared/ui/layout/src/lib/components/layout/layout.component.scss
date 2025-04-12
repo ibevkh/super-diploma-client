@@ -1,0 +1,14 @@
+.main-content {
+  padding: 0 1rem;
+  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
+}
+
+.main-sidenav {
+  min-width: 280px;
+  max-width: 280px;
+  --mat-list-active-indicator-shape: 0;
+  --mat-sidenav-container-shape: 0;
+  --mat-sidenav-container-divider-color: var(--mdc-outlined-card-outline-color);
+}

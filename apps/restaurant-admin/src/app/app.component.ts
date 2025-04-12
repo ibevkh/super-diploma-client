@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AdminLayoutComponent } from '@ib/feat/admin-layout';
 import { LayoutComponent } from '@ib/ui/layout';
 
 
 @Component({
-  imports: [RouterModule, LayoutComponent],
+  imports: [RouterModule, LayoutComponent, AdminLayoutComponent],
   selector: 'ib-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

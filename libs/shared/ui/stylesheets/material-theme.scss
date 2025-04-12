@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+@import "m3-theme";
+
+@include mat.core();
+
+html {
+  @include mat.all-component-themes($light-theme);
+}

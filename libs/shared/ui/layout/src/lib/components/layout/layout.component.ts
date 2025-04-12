@@ -1,24 +1,27 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatListItem } from '@angular/material/list';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatToolbar } from '@angular/material/toolbar';
+import { RouterOutlet } from '@angular/router';
+
+import { ContainerComponent } from '@ib/ui/container';
+import { ColumnComponent, RowComponent, TabletDirective, WebDirective } from '@ib/ui/grid';
+import { SidenavItem } from '../../model';
+
+import { SidenavComponent } from '../sidenav/sidenav.component';
 
 @Component({
   selector: 'ib-layout',
+  standalone: true,
   imports: [
-    CommonModule,
-    MatSidenavContainer,
-    MatSidenavContent,
-    MatListItem,
-    RouterLink,
-    RouterLinkActive,
-    RouterOutlet,
-    MatSidenav,
+    CommonModule, RouterOutlet, RowComponent, ColumnComponent,
+    TabletDirective, WebDirective, ContainerComponent, MatSidenav,
+    MatSidenavContainer, MatSidenavContent, MatToolbar, SidenavComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  menuItems = input<SidenavItem[]>([]);
+}
