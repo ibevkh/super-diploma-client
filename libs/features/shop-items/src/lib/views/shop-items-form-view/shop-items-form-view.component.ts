@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatError } from '@angular/material/form-field';
 import { MatFormField, MatInput } from '@angular/material/input';
 import { MatLabel, MatOption, MatSelect } from '@angular/material/select';
+import { ContainerComponent } from '@ib/ui/container';
+import { ColumnComponent, HandsetDirective, RowComponent, TabletDirective, WebDirective } from '@ib/ui/grid';
+import { FullWidthDirective } from '@ib/ui/width';
 import { vestForms } from 'ngx-vest-forms';
 import { shopItemFormShape } from '../../models';
 import { ShopItemStore } from '../../services';
@@ -29,6 +32,13 @@ import { createShopItemValidationConfig, createShopItemValidationSuite } from '.
     MatButtonModule,
     MatOption,
     MatSelect,
+    ContainerComponent,
+    RowComponent,
+    WebDirective,
+    TabletDirective,
+    HandsetDirective,
+    ColumnComponent,
+    FullWidthDirective,
   ],
   templateUrl: './shop-items-form-view.component.html',
   styleUrl: './shop-items-form-view.component.scss',
@@ -80,13 +90,13 @@ export class ShopItemsFormViewComponent {
       console.log('Submitting...', this.formValue());
       await this.#store.createOrUpdateItem();
       await this.#store.resetForm();
-      await this.#router.navigate(["shop-items"]);
+      await this.#router.navigate(['shop-items']);
     } else {
       console.log('Not valid...', this.errors(), this.formValue());
     }
   }
 
   async onCancelClick() {
-    await this.#router.navigate(["shop-items"]);
+    await this.#router.navigate(['shop-items']);
   }
 }

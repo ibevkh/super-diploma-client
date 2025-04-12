@@ -1,76 +1,157 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <span>Shop Items Grid</span>
-    <span class="example-spacer"></span>
-  </mat-toolbar-row>
-  <mat-toolbar-row>
-    <mat-form-field>
-      <mat-label>Категорії</mat-label>
-      <mat-select
-        [(ngModel)]="filter().categoryId"
-        (ngModelChange)="onFilterChange()"
-      >
-        @for (item of datasources.categories(); track item.id) {
-          <mat-option [value]="item.id">{{item.name}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Стан</mat-label>
-      <mat-select
-        [(ngModel)]="filter().state"
-        (ngModelChange)="onFilterChange()"
-      >
-        @for (item of datasources.states(); track item.id) {
-          <mat-option [value]="item.id">{{item.name}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-    <button mat-flat-button (click)="onCreateClick()">Створити</button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div class="grid-container">
+  <mat-toolbar class="toolbar-container">
 
-<section>
-  <div>
-    <mat-table [dataSource]="items()" class="mat-elevation-z8">
-      @for (conf of columnsConfig; track conf.columnName) {
-        <ng-container matColumnDef="{{conf.columnName}}">
-          <mat-header-cell *matHeaderCellDef> {{conf.headerName}} </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element[conf.columnName]}} </mat-cell>
+    <mat-toolbar-row>
+      <h3>Товари</h3>
+      <span class="spacer"></span>
+      <div class="actions">
+        <button mat-stroked-button color="primary" aria-label="Додати" (click)="onCreateClick()">
+          <span>Додати</span>
+        </button>
+      </div>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <mat-form-field appearance="outline" color="accent" class="search-input">
+        <mat-label>Пошук</mat-label>
+        <!--(keyup)="onSearchChange(getValue($event))"
+        [value]="filter().searchString || ''"-->
+        <input matInput
+
+        >
+      </mat-form-field>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <mat-form-field>
+        <mat-label>Категорії</mat-label>
+        <mat-select
+          [(ngModel)]="filter().categoryId"
+          (ngModelChange)="onFilterChange()"
+        >
+          @for (item of datasources.categories(); track item.id) {
+            <mat-option [value]="item.id">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Стан</mat-label>
+        <mat-select
+          [(ngModel)]="filter().state"
+          (ngModelChange)="onFilterChange()"
+        >
+          @for (item of datasources.states(); track item.id) {
+            <mat-option [value]="item.id">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <div class="table-container">
+    <div class="table">
+      <mat-table [dataSource]="items()" class="h-fit">
+        @for (conf of columnsConfig; track conf.columnName) {
+          <ng-container matColumnDef="{{conf.columnName}}">
+            <mat-header-cell *matHeaderCellDef> {{ conf.headerName }}</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element[conf.columnName] }}</mat-cell>
+          </ng-container>
+        }
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onGridClick(row)"></mat-row>
+
+        <ng-container matColumnDef="paginator">
+          <mat-footer-cell *matFooterCellDef [attr.colspan]="100">
+            <mat-paginator (page)="onPageChange($event)"
+                           [length]="paginatorSettings().totalQty"
+                           [pageSize]="paginatorSettings().pageSize"
+                           [pageSizeOptions]="paginatorSettings().pageSizeOptions || []"
+                           [pageIndex]="paginatorSettings().pageNumber"
+            ></mat-paginator>
+          </mat-footer-cell>
         </ng-container>
-      }
+        <mat-footer-row *matFooterRowDef="['paginator']; sticky: true"></mat-footer-row>
+      </mat-table>
+    </div>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onGridClick(row)" ></mat-row>
-
-      <ng-container matColumnDef="paginator">
-        <mat-footer-cell *matFooterCellDef [attr.colspan]="100">
-          <mat-paginator (page)="onPageChange($event)"
-                         [length]="paginatorSettings().totalQty"
-                         [pageSize]="paginatorSettings().pageSize"
-                         [pageSizeOptions]="paginatorSettings().pageSizeOptions || []"
-                         [pageIndex]="paginatorSettings().pageNumber"
-          ></mat-paginator>
-        </mat-footer-cell>
-      </ng-container>
-      <mat-footer-row *matFooterRowDef="['paginator']; sticky: true"></mat-footer-row>
-    </mat-table>
-  </div>
   @if (isPreviewVisible()) {
-    <div class="preview">
-      <mat-card>
-        <mat-card-header>
-          {{preview().name}}
-        </mat-card-header>
-        <mat-card-content>
-          <span>{{preview().description}}</span>
-        </mat-card-content>
-        <mat-card-actions>
-          <a mat-raised-button routerLink="{{preview().id}}">Редагувати</a>
-          <button mat-raised-button (click)="onDeleteClick(preview().id)">Видалити</button>
-        </mat-card-actions>
-      </mat-card>
+    <div class="preview-container">
+      <div class="preview-header">
+        <span>Товар №: {{ preview().id }}</span>
+
+        <svg
+          class="preview-close-button"
+          viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+          (mouseup)="hidePreview()">
+          <path
+            d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512
+            828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512
+             195.2 285.696a64 64 0 0 1 0-90.496z" />
+        </svg>
+      </div>
+      <div class="preview-body">
+        @if (quickPreviewItemIsLoading()) {
+          <div class="absolute left-0 w-full top-40">
+            <mat-spinner class="m-auto"
+                         mode="indeterminate"
+                         diameter="50" />
+          </div>
+        } @else {
+          <div class="preview-content">
+            <div class="quick-preview-body">
+
+              <section class="section section--border-bottom">
+                <h3 class="title quick-preview-section-title">{{ preview().name }}</h3>
+                <h4 class="title quick-preview-section-title">
+                  Відомості про категорію
+                </h4>
+                <div class="row-content">
+                  <div class="field">
+                    <span class="field-name">
+                      Категорія
+                    </span>
+                    <span class="field-value">
+                      {{ preview().categoryName }}
+                    </span>
+                  </div>
+
+                  <div class="field">
+                    <span class="field-name">
+                      Опис
+                    </span>
+                    <span class="field-value">
+                      {{ preview().categoryDescription || '-' }}
+                    </span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="section section--border-bottom">
+                <h4 class="title quick-preview-section-title">
+                  Опис
+                </h4>
+                <div class="row-content">
+                  <div class="field">
+                    <span class="field-value">
+                      {{ preview().description }}
+                    </span>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="preview-bottom">
+        <a mat-flat-button routerLink="{{preview().id}}">Редагувати</a>
+        <button mat-flat-button (click)="onDeleteClick(preview().id)">Видалити</button>
+      </div>
     </div>
   }
+  </div>
 
-</section>
+</div>

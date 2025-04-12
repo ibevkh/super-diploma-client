@@ -42,6 +42,10 @@ body {
   }
 }
 
+.quick-preview-section-title {
+  color: var(--mdc-filled-button-container-color, var(--mat-sys-primary));
+}
+
 .light {
   .quick-preview-section-title {
     color: #146683;
@@ -144,9 +148,17 @@ body {
   .preview-bottom {
     width: 100%;
     display: flex;
+
+    a {
+      margin-right: .5rem;
+    }
   }
 }
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.actions {
+  justify-content: end;
 }

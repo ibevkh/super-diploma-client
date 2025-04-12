@@ -36,3 +36,137 @@
   right: 0;
   top: 0
 }
+
+
+.quick-preview-body {
+  padding: .5rem;
+}
+
+.quick-preview-header {
+  overflow-wrap: break-word;
+  padding-bottom: 20px;
+  padding-left: .5rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 36px;
+  line-height: 36px;
+  .title {
+    font-size: 21px;
+    line-height: 25px;
+  }
+  .additional-info {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 20px;
+    span {
+      margin-right: 20px;
+    }
+    span:last-child,
+    span:only-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-bottom: 25px;
+
+  h3.title {
+    font-size: 24px;
+    word-break: break-word;
+    margin-bottom: 1rem;
+    margin-top: .5rem;
+  }
+
+  h4.title {
+    font-size: 18px;
+    word-break: break-word;
+    margin-bottom: 0;
+    margin-top: .5rem;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 0 24px;
+  }
+
+  &--border-bottom {
+    border-bottom: .5px solid #ccc;
+    padding-bottom: 12px;
+  }
+}
+
+.row-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+
+  &--border-bottom {
+    border-bottom: 1px solid var(--vrp-color-neutral-400);
+    padding-bottom: 24px;
+  }
+
+  .field {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-right: 35px;
+    padding-top: 15px;
+
+    .field-name {
+      font-size: .7rem;
+      //padding-bottom: 4px;
+      //color: var(--vrp-color-neutral-600);
+      color: lightslategray;
+
+      &::after {
+        content: ': ';
+      }
+    }
+
+
+    .field-value {
+      font-size: 1rem;
+      word-wrap: break-word;
+    }
+  }
+
+  .field:last-child {
+    margin-right: 0;
+  }
+
+  .control {
+    width: 320px;
+    margin: 26px 26px 26px 0;
+
+    &.x2 {
+      width: 668px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .control-description {
+      font-size: 12px;
+      //margin: 5px,5px;
+      text-align: left;
+      color: var(--vrp-color-primary-500);
+    }
+    &.switch {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.sub-amount {
+  font-size: .7rem;
+}
+

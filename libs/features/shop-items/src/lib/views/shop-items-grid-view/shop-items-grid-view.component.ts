@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {
   MatCell,
   MatCellDef,
@@ -23,7 +24,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
 import { ShopItemListItem } from '../../models';
 import { ShopItemStore } from '../../services';
-import { MatFormField, MatLabel } from '@angular/material/input';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
@@ -59,6 +60,8 @@ import { MatOption, MatSelect } from '@angular/material/select';
     MatFooterCell,
     MatFooterRow,
     MatFooterRowDef,
+    MatInput,
+    MatProgressSpinner,
   ],
   templateUrl: './shop-items-grid-view.component.html',
   styleUrl: './shop-items-grid-view.component.scss',
@@ -75,6 +78,7 @@ export class ShopItemsGridViewComponent implements OnInit {
   filter = this.#store.gridFilter;
 
   isPreviewVisible = signal(false);
+  quickPreviewItemIsLoading = signal<boolean>(false);
 
   columnsConfig = [
     { columnName: 'name', headerName: 'Назва' },
@@ -119,8 +123,12 @@ export class ShopItemsGridViewComponent implements OnInit {
   }
 
   async onPageChange(e: PageEvent) {
-    this.#store.setPageNumber(e.pageIndex)
+    this.#store.setPageNumber(e.pageIndex);
     this.#store.setPageSize(e.pageSize);
     await this.#store.loadFilteredList();
+  }
+
+  hidePreview() {
+    this.isPreviewVisible.set(false);
   }
 }
