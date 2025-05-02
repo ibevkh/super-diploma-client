@@ -15,7 +15,7 @@ export const createShopItemValidationSuite = () => {
       only(field);
     }
 
-    test('name', 'Ірочка молодець, але поле треба заповнити', () => {
+    test('name', 'Поле необхідно заповненити!:)', () => {
       enforce(model.name).isNotBlank();
     })
   });

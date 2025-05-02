@@ -6,6 +6,7 @@ export class AdminLayoutService {
   getMenuItems(): SidenavItem[] {
     return [
       { label: 'Home', icon: 'home', route: '' },
+      { label: 'Categories', icon: 'category', route: 'categories' },
       { label: 'ShopItems', icon: 'shopping', route: 'shop-items' },
     ];
   }

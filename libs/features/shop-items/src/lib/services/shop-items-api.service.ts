@@ -14,11 +14,11 @@ import {
 export class ShopItemApiService {
   readonly #http = inject(HttpClient);
 
-  readonly #baseUrl = 'https://localhost:7076/api/shop-items';
-  readonly #filteredGridUrl = `${this.#baseUrl}/filtered-grid`;
-  readonly #gridDataSource = `${this.#baseUrl}/grid-datasources`;
-  readonly #preview = `${this.#baseUrl}/preview`;
-  readonly #formDatasource = `${this.#baseUrl}/form-datasources`;
+  readonly #baseShopItemUrl = 'https://localhost:7076/api/shop-items';
+  readonly #filteredGridUrl = `${this.#baseShopItemUrl}/filtered-grid`;
+  readonly #gridDataSource = `${this.#baseShopItemUrl}/grid-datasources`;
+  readonly #preview = `${this.#baseShopItemUrl}/preview`;
+  readonly #formDatasource = `${this.#baseShopItemUrl}/form-datasources`;
 
   async getFilteredList(
     filter: ShopItemGridFilterDto
@@ -45,7 +45,7 @@ export class ShopItemApiService {
 
   async getItemById(id: number): Promise<ShopItemFormDto> {
     return await firstValueFrom(
-      this.#http.get<ShopItemFormDto>(`${this.#baseUrl}/${id}`)
+      this.#http.get<ShopItemFormDto>(`${this.#baseShopItemUrl}/${id}`)
     );
   }
 
@@ -57,13 +57,13 @@ export class ShopItemApiService {
 
   async createOrUpdateShopItem(item: ShopItemFormDto): Promise<ShopItemFormDto> {
     return await firstValueFrom(
-      this.#http.post<ShopItemFormDto>(this.#baseUrl, item)
+      this.#http.post<ShopItemFormDto>(this.#baseShopItemUrl, item)
     );
   }
 
   async deleteShopItem(id: number): Promise<ShopItemFormDto> {
     return await firstValueFrom(
-      this.#http.delete<ShopItemFormDto>(`${this.#baseUrl}/${id}`)
+      this.#http.delete<ShopItemFormDto>(`${this.#baseShopItemUrl}/${id}`)
     );
   }
 }

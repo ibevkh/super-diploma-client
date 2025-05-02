@@ -1,4 +1,4 @@
-import { DatasourceItem } from './datasource-item';
+import { DatasourceItem } from '../datasource-item';
 
 export type ShopItemFormDatasource = {
   categories: DatasourceItem[];

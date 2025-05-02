@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@angular/material/list';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { MatNavList } from '@angular/material/list';
+
 
 import { SidenavItem } from '../../model';
 import { SidenavItemComponent } from '../sidenav-item/sidenav-item.component';
@@ -11,8 +10,7 @@ import { SidenavItemComponent } from '../sidenav-item/sidenav-item.component';
   selector: 'ib-sidenav',
   standalone: true,
   imports: [
-    CommonModule, MatNavList, MatListItem, MatIcon, MatListItemIcon,
-    MatListItemTitle, RouterLink, RouterLinkActive, SidenavItemComponent
+    CommonModule, MatNavList, SidenavItemComponent
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',

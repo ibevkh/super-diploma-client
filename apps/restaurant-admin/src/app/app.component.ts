@@ -5,7 +5,7 @@ import { LayoutComponent } from '@ib/ui/layout';
 
 
 @Component({
-  imports: [RouterModule, LayoutComponent, AdminLayoutComponent],
+  imports: [RouterModule, AdminLayoutComponent],
   selector: 'ib-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -18,7 +18,6 @@ type ShopItemState = {
   totalQty: number;
   gridFilter: ShopItemGridFilter;
   isGridLoading: boolean;
-
   gridDatasources: ShopItemGridDatasource;
 
   selectedItemId: number | undefined;
@@ -84,13 +83,6 @@ export const ShopItemStore = signalStore(
       const filter = _mapper.mapShopItemGridFilterToDto(store.gridFilter());
       const dto = await _apiService.getFilteredList(filter);
       const response = _mapper.mapPaginatedResponseFromDto(dto);
-
-      // const response = _mapper.mapPaginatedResponseFromDto(
-      //   await _apiService.getFilteredList(
-      //     _mapper.mapShopItemGridFilterToDto(store.gridFilter())
-      //   )
-      // );
-
       patchState(store, {
         items: response.data,
         currentPageNumber: response.pageNumber,
@@ -105,11 +97,6 @@ export const ShopItemStore = signalStore(
       const gridDatasources = _mapper.mapShopItemGridDatasourceFromDto(dto);
       patchState(store, { gridDatasources });
     };
-    /*****************/
-    // const loadPreviewById = async (id: number) => {
-    //   const preview = await _apiService.getPreviewById(id);
-    //   patchState(store, { preview });
-    // };
 
     const loadPreviewById = async (id: number) => {
       const dto = await _apiService.getPreviewById(id);
@@ -117,25 +104,11 @@ export const ShopItemStore = signalStore(
       patchState(store, { selectedItemId: id, preview });
     };
 
-    // const loadById = async (id: number) => {
-    //   const form = await _apiService.getById(id);
-    //   patchState(store, { form });
-    // };
-
     const loadItemById = async (id: number) => {
       const dto = await _apiService.getItemById(id);
       const form = _mapper.mapShopItemFormFromDto(dto);
       patchState(store, { selectedItemId: id, form });
     };
-
-    // const deleteItem = async () => {
-    //   if (store.selectedItemId() === undefined) return;
-    //   await _apiService.deleteShopItem(store.selectedItemId() as number);
-    //   patchState(store, {
-    //     selectedItemId: undefined,
-    //   });
-    //   await loadFilteredList();
-    // }
 
     const loadFormDatasources = async () => {
       const dto = await _apiService.getFormDatasources();
@@ -156,10 +129,6 @@ export const ShopItemStore = signalStore(
       });
       await loadFilteredList();
     }
-
-    // const selectItem = async (id: number) => {
-    //   patchState(store, { selectedItemId: id });
-    // }
 
     const resetForm = async () => {
       patchState(store, { form: {...initialForm} })

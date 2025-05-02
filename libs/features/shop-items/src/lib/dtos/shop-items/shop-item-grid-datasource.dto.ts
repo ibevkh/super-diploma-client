@@ -1,4 +1,4 @@
-import { DatasourceItemDto } from './datasource-item.dto';
+import { DatasourceItemDto } from '../datasource-item.dto';
 
 export type ShopItemGridDatasourceDto = {
   categories: DatasourceItemDto[];

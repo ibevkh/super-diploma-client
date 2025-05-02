@@ -14,9 +14,8 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
   selector: 'ib-layout',
   standalone: true,
   imports: [
-    CommonModule, RouterOutlet, RowComponent, ColumnComponent,
-    TabletDirective, WebDirective, ContainerComponent, MatSidenav,
-    MatSidenavContainer, MatSidenavContent, MatToolbar, SidenavComponent
+    CommonModule, RouterOutlet, MatSidenav,
+    MatSidenavContainer, MatSidenavContent, SidenavComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
