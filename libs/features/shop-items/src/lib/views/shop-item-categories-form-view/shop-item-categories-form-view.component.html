@@ -1,1 +1,60 @@
-<p>shop-item-categories-form-view works!</p>
+<ib-container height="max-height" mode="flex">
+  <header>
+    @if (vm.isNew) {
+      <h3>Нова категорія</h3>
+    } @else {
+      <h3>Категорія # {{ vm.formValue.id }}</h3>
+    }
+  </header>
+
+  <form scVestForm
+        (ngSubmit)="onSubmit()"
+        [formValue]="vm.formValue"
+        [validateRootForm]="true"
+        [formShape]="shape"
+        [suite]="suite"
+        [validationConfig]="validationConfig"
+        (validChange)="formValid.set($event || false)"
+        (errorsChange)="errors.set($event)">
+
+    <ib-row ibWeb ibTablet ibHandset>
+      <ib-column ibWeb ibTablet ibHandset>
+        <h4>Загальна інформація</h4>
+      </ib-column>
+    </ib-row>
+
+    <ib-row ibWeb ibTablet ibHandset>
+      <ib-column ibWeb="3" ibTablet="3" ibHandset="3">
+        <mat-form-field ibFullWidth>
+          <mat-label>Назва</mat-label>
+          <input matInput [(ngModel)]="vm.formValue.name" name="name" type="text">
+          <mat-error>{{ vm.errors['name'] || '' }}</mat-error>
+        </mat-form-field>
+      </ib-column>
+
+      <ib-column ibWeb="3" ibTablet="3" ibHandset="3">
+        <mat-form-field ibFullWidth>
+          <mat-label>Опис</mat-label>
+          <input matInput [(ngModel)]="vm.formValue.description" name="description" type="text">
+        </mat-form-field>
+      </ib-column>
+    </ib-row>
+
+    <ib-row class="actions" ibWeb ibTablet ibHandset>
+      <ib-column ibWeb="2" ibTablet="3" ibHandset="6">
+        <button mat-button (click)="onCancelClick()" type="button">Скасувати</button>
+      </ib-column>
+      <ib-column ibWeb="2" ibTablet="3" ibHandset="6">
+        <button mat-stroked-button color="primary" type="submit">Зберегти</button>
+      </ib-column>
+    </ib-row>
+  </form>
+
+  <header>
+    @if (vm.isNew) {
+      <h3>Нова категорія</h3>
+    } @else {
+      <h3>Категорія # {{ vm.formValue.id }}</h3>
+    }
+  </header>
+</ib-container>

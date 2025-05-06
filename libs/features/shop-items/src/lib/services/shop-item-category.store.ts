@@ -9,9 +9,11 @@ import { ShopItemCategoryMappingService } from './shop-items-category-mapping.se
 type ShopItemCategoryState = {
   items: ShopItemCategoryGrid[];
   isGridLoading: boolean;
-  gridFilter: ShopItemCategoryGridFilter;
 
-  totalQty: number; // <---  загальна кількість
+  gridFilter: ShopItemCategoryGridFilter;
+  totalQty: number;
+
+  selectedItem: ShopItemCategoryGrid | undefined;
   selectedItemId: number | undefined;
   form: ShopItemCategoryForm;
 };
@@ -29,7 +31,8 @@ const initialState: ShopItemCategoryState = {
     pageNumber: 0,
     pageSize: 10,
   },
-  totalQty: 0, // <--- ініціалізуємо
+  totalQty: 0,
+  selectedItem: undefined,
   selectedItemId: undefined,
   form: { ...initialForm },
 };
@@ -50,7 +53,7 @@ export const ShopItemCategoryStore = signalStore(
 
       patchState(store, {
         items: categories,
-        totalQty: dto.totalQty, // <-- оновлюємо кількість
+        totalQty: dto.totalQty,
         isGridLoading: false,
       });
     };
@@ -64,12 +67,25 @@ export const ShopItemCategoryStore = signalStore(
     const createOrUpdateCategory = async () => {
       const category = _mapper.mapShopItemCategoryFormToDto(store.form());
       await _apiService.createOrUpdateCategory(category);
-      patchState(store, { form: undefined });
+      await resetForm();
+      //patchState(store, { form: {...initialForm} });
     };
 
+    // const deleteCategory = async (id: number) => {
+    //   console.log('Calling API to delete ID:', id);
+    //   await _apiService.deleteCategory(id);
+    //   patchState(store, { selectedItemId: undefined });
+    //   await loadFilteredListCategory();
+    // };
+
     const deleteCategory = async (id: number) => {
+      console.log('Calling API to delete ID:', id);
       await _apiService.deleteCategory(id);
-      patchState(store, { selectedItemId: undefined });
+      patchState(store, {
+        // selectedItem: undefined,
+        selectedItemId: undefined,
+      });
+
       await loadFilteredListCategory();
     };
 
@@ -92,6 +108,19 @@ export const ShopItemCategoryStore = signalStore(
       });
     };
 
+    const setSelectedItem = (item: ShopItemCategoryGrid, id: number) => {
+      console.log('Setting selectedItem:', item);
+      console.log('Item ID before patchState:', item.id);
+      patchState(store, {
+        selectedItem: item,
+        selectedItemId: id
+      });
+    };
+
+    const resetForm = async () => {
+      patchState(store, { form: {...initialForm} })
+    };
+
     return {
       loadFilteredListCategory,
       loadCategoryById,
@@ -99,6 +128,8 @@ export const ShopItemCategoryStore = signalStore(
       deleteCategory,
       setPageSize,
       setPageNumber,
+      setSelectedItem,
+      resetForm,
     };
   })
 );

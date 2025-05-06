@@ -26,6 +26,7 @@ export class ShopItemCategoryMappingService {
 
   mapShopItemCategoryGridListFromDto(dto: ShopItemCategoryGridDto[]): ShopItemCategoryGrid[] {
     return dto.map(item => ({
+      id: item.id,
       name: item.name,
       description: item.description
     }));

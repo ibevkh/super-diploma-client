@@ -22,21 +22,21 @@
           </ng-container>
         }
 
-        <!-- Дії -->
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef> Дії </mat-header-cell>
           <mat-cell *matCellDef="let element">
             <button mat-icon-button color="warn" (click)="onDeleteClick(element.id)">
-              <mat-icon>видалити</mat-icon>
+              <mat-icon>delete</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="onCreateClick()">
-              <mat-icon>редагувати</mat-icon>
+            <button mat-icon-button color="primary" (click)="onEditClick(element.id)">
+              <mat-icon>edit</mat-icon>
             </button>
           </mat-cell>
         </ng-container>
 
+        <!-- Рядки таблиці -->
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></mat-row>
 
         <!-- Пагінація -->
         <ng-container matColumnDef="paginator">
@@ -51,6 +51,7 @@
           </mat-footer-cell>
         </ng-container>
         <mat-footer-row *matFooterRowDef="['paginator']; sticky: true"></mat-footer-row>
+
       </mat-table>
     </div>
   </div>

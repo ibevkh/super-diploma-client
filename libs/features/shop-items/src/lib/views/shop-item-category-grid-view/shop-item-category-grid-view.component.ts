@@ -1,43 +1,65 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable
-} from '@angular/material/table';
-import { MatToolbarModule } from '@angular/material/toolbar';
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+  computed
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
+import { ShopItemCategoryGrid } from '../../models/shop-item-categories/shop-item-category-grid';
 import { ShopItemCategoryStore } from '../../services/shop-item-category.store';
+
+import {
+  MatToolbarModule
+} from '@angular/material/toolbar';
+import {
+  MatButton,
+  MatIconButton
+} from '@angular/material/button';
+import {
+  MatTable,
+  MatHeaderCell,
+  MatCell,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatCellDef,
+  MatHeaderRow,
+  MatRow,
+  MatFooterCell,
+  MatFooterCellDef,
+  MatFooterRow,
+  MatHeaderRowDef,
+  MatRowDef,
+  MatFooterRowDef
+} from '@angular/material/table';
+import {
+  MatPaginator
+} from '@angular/material/paginator';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'ib-shop-item-category-grid-view',
   standalone: true,
-
   imports: [
     MatToolbarModule,
     MatButton,
+    MatIconButton,
+    MatIcon,
     MatTable,
     MatHeaderCell,
     MatCell,
-    MatIcon,
     MatColumnDef,
     MatHeaderCellDef,
     MatCellDef,
-    MatIconButton,
     MatHeaderRow,
     MatRow,
     MatFooterCell,
-    MatPaginator,
+    MatFooterCellDef,
     MatFooterRow,
+    MatPaginator,
     MatHeaderRowDef,
     MatRowDef,
-    MatFooterCellDef,
     MatFooterRowDef,
   ],
   templateUrl: './shop-item-category-grid-view.component.html',
@@ -50,6 +72,10 @@ export class ShopItemCategoryGridViewComponent implements OnInit {
 
   readonly items = this.#store.items;
   readonly filter = this.#store.gridFilter;
+  selectedItem = this.#store.selectedItem;
+  // selectedItemId = this.#store.selectedItemId;
+
+  selectedItem$ = computed(() => this.#store.selectedItem());
 
   readonly paginatorSettings = computed(() => ({
     pageSize: this.filter().pageSize,
@@ -64,28 +90,45 @@ export class ShopItemCategoryGridViewComponent implements OnInit {
   ];
 
   get displayedColumns() {
-    return this.columnsConfig.map((item) => item.columnName);
+    return [...this.columnsConfig.map((col) => col.columnName), 'actions'];
+  }
+
+  get selectedItemId(): number | undefined {
+    return this.#store.selectedItemId();
   }
 
   ngOnInit(): void {
-    this.#store.loadFilteredListCategory(); // ініціалізація категорій при завантаженні
+    this.#store.loadFilteredListCategory();
   }
 
   async onDeleteClick(id: number): Promise<void> {
+    console.log("!!!", id);
+    // this.#store.setSelectedItem(item, item.id);
+    console.log('ID переданий у onDeleteClick:', id);
+    if (id === undefined) {
+      console.error('ID undefined! Можливо, обʼєкт не має id');
+      return;
+    }
+    // this.#store.setSelectedItem(item, item.id);
     await this.#store.deleteCategory(id);
   }
 
   async onCreateClick(): Promise<void> {
-    await this.#router.navigate(['categories-form']);
+    await this.#router.navigate(['categories', 'new']);
   }
 
-  // onFilterChange(): void {
-  //   this.#store.loadFilteredListCategory();
-  // }
+  async onEditClick(id: number): Promise<void> {
+    await this.#router.navigate(['categories', id]);
+  }
 
   async onPageChange(e: PageEvent): Promise<void> {
     this.#store.setPageNumber(e.pageIndex);
     this.#store.setPageSize(e.pageSize);
     await this.#store.loadFilteredListCategory();
+  }
+
+  onRowClick(item: ShopItemCategoryGrid): void {
+    // console.log('Обраний елемент:', item);
+    this.#store.setSelectedItem(item, item.id);
   }
 }
