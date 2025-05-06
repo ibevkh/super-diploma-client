@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { PaginatedResponseDto } from '@ib/core/dto';
 import {
-  PaginatedResponseDto,
   ShopItemGridDatasourceDto, ShopItemFormDatasourceDto, ShopItemFormDto,
   ShopItemGridFilterDto,
   ShopItemListItemDto,
@@ -13,7 +13,7 @@ import {
   ShopItemListItem,
   ShopItemPreview
 } from '../models';
-import { PaginatedResponse } from '../models/paginated-response';
+import { PaginatedResponse } from '@ib/core/model';
 
 @Injectable({providedIn: 'root'})
 export class ShopItemsMappingService {

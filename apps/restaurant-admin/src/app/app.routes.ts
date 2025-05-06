@@ -7,6 +7,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'categories',
-    loadChildren: () => import('@ib/feat/categories').then(m => m.categoriesRoutes),
+    loadChildren: () => import('@ib/feat/shop-item-categories').then(m => m.shopItemCategoriesRoutes),
   },
 ];

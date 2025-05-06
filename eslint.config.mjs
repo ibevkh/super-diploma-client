@@ -34,7 +34,7 @@ export default [
             },
             {
               'sourceTag': 'type:feature',
-              'onlyDependOnLibsWithTags': ['type:ui', 'type:util']
+              'onlyDependOnLibsWithTags': ['type:ui', 'type:util', 'type:data-access']
             },
             {
               'sourceTag': 'type:ui',
@@ -42,7 +42,11 @@ export default [
             },
             {
               'sourceTag': 'type:util',
-              'onlyDependOnLibsWithTags': ['type:util']
+              'onlyDependOnLibsWithTags': ['type:util', 'type:data-access']
+            },
+            {
+              'sourceTag': 'type:data-access',
+              'onlyDependOnLibsWithTags': ['type:data-access']
             }
           ],
         },

@@ -1,0 +1,58 @@
+<div class="grid-container">
+  <mat-toolbar class="toolbar-container">
+    <mat-toolbar-row>
+      <h3>Категорії страв</h3>
+      <span class="spacer"></span>
+      <div class="actions">
+        <button mat-stroked-button color="primary" aria-label="Додати" (click)="onCreateClick()">
+          <span>Додати</span>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="table-container">
+    <div class="table">
+      <mat-table [dataSource]="items()" class="h-fit">
+
+        @for (conf of columnsConfig; track conf.columnName) {
+          <ng-container matColumnDef="{{ conf.columnName }}">
+            <mat-header-cell *matHeaderCellDef> {{ conf.headerName }} </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element[conf.columnName] }} </mat-cell>
+          </ng-container>
+        }
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Дії </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button color="warn" (click)="onDeleteClick(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="onEditClick(element.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Рядки таблиці -->
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        <!-- Пагінація -->
+        <ng-container matColumnDef="paginator">
+          <mat-footer-cell *matFooterCellDef [attr.colspan]="100">
+            <mat-paginator
+              (page)="onPageChange($event)"
+              [length]="paginatorSettings().totalQty"
+              [pageSize]="paginatorSettings().pageSize"
+              [pageSizeOptions]="paginatorSettings().pageSizeOptions || []"
+              [pageIndex]="paginatorSettings().pageNumber"
+            ></mat-paginator>
+          </mat-footer-cell>
+        </ng-container>
+        <mat-footer-row *matFooterRowDef="['paginator']; sticky: true"></mat-footer-row>
+
+      </mat-table>
+    </div>
+  </div>
+</div>

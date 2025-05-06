@@ -17,7 +17,7 @@ import { vestForms } from 'ngx-vest-forms';
 import { shopItemFormShape } from '../../models';
 import { ShopItemStore } from '../../services';
 import { ActivatedRoute, Router } from '@angular/router';
-import { createShopItemValidationConfig, createShopItemValidationSuite } from '../../validation/shop-items-form-view.validations';
+import { createShopItemValidationConfig, createShopItemValidationSuite } from '../../validation';
 
 @Component({
   selector: 'ib-shop-items-form-view',
