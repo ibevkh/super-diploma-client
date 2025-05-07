@@ -84,7 +84,7 @@ export class ShopItemCategoriesFormViewComponent {
     if (this.formValid()) {
       this.loading.set(true);
       await this.#store.createOrUpdateCategory();
-      //await  this.#store.resetForm();
+      // await  this.#store.resetForm();
       this.loading.set(false);
       await this.#router.navigate(['categories']);
     } else {

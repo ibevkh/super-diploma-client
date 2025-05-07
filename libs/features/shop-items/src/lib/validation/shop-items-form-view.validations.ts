@@ -15,8 +15,24 @@ export const createShopItemValidationSuite = () => {
       only(field);
     }
 
-    test('name', 'Поле необхідно заповненити!:)', () => {
+    test('name', 'Без назви ніяк!:)', () => {
       enforce(model.name).isNotBlank();
     })
+
+    test('description', 'Без опису ніяк!:)', () => {
+      enforce(model.description).isNotBlank();
+    })
+
+    test('price', 'Ціна не може бути 0!:)', () => {
+      enforce(model.price).greaterThan(0);
+    });
+
+    test('state', 'Обери стан!:)', () => {
+      enforce(model.state).isNotBlank();
+    });
+
+    test('categoryId', 'Обери категорію!:)', () => {
+      enforce(model.categoryId).isNotBlank();
+    });
   });
 };

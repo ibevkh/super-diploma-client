@@ -5,7 +5,6 @@ export const createShopItemCategoryValidationConfig = (): {
   [key: string]: string[];
 } => {
   return {
-    // Додай залежності полів, якщо потрібно
   };
 };
 
@@ -15,9 +14,8 @@ export const createShopItemCategoryValidationSuite = () => {
       only(field);
     }
 
-    test('name', 'Поле "Назва" є обов’язковим', () => {
+    test('name', 'Поле необхідно заповнити!:)', () => {
       enforce(model.name).isNotBlank();
     });
-
   });
 };

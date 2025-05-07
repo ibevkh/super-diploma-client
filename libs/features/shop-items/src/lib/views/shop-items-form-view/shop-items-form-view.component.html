@@ -1,9 +1,9 @@
 <ib-container height="max-height" mode="flex">
   <header>
     @if (vm.isNew) {
-      <h3>Новий шоп-айтем</h3>
+      <h3 class="title quick-preview-section-title">Нова страва</h3>
     } @else {
-      <h3>Шопайтем # {{ vm.formValue.id }}</h3>
+      <h3 class="title quick-preview-section-title">Товар № {{ vm.formValue.id }}</h3>
     }
   </header>
 
@@ -19,7 +19,7 @@
 
     <ib-row ibWeb ibTablet ibHandset>
       <ib-column ibWeb ibTablet ibHandset>
-        <h4>General information</h4>
+        <h4 class="title quick-preview-section-title">Загальна інформація</h4>
       </ib-column>
     </ib-row>
 
@@ -36,6 +36,7 @@
         <mat-form-field ibFullWidth>
           <mat-label>Опис</mat-label>
           <input matInput [(ngModel)]="vm.formValue.description" name="description" type="text">
+          <mat-error>{{ vm.errors['description'] || '' }}</mat-error>
         </mat-form-field>
       </ib-column>
 
@@ -43,6 +44,7 @@
         <mat-form-field ibFullWidth>
           <mat-label>Ціна</mat-label>
           <input matInput [(ngModel)]="vm.formValue.price" name="price" type="text">
+          <mat-error>{{ vm.errors['price'] || '' }}</mat-error>
         </mat-form-field>
       </ib-column>
     </ib-row>
@@ -58,6 +60,7 @@
               <mat-option [value]="item.id">{{ item.name }}</mat-option>
             }
           </mat-select>
+          <mat-error>{{ vm.errors['state'] || '' }}</mat-error>
         </mat-form-field>
       </ib-column>
 
@@ -70,6 +73,7 @@
               <mat-option [value]="item.id">{{ item.name }}</mat-option>
             }
           </mat-select>
+          <mat-error>{{ vm.errors['categoryId'] || '' }}</mat-error>
         </mat-form-field>
       </ib-column>
     </ib-row>
@@ -89,9 +93,9 @@
 
   <header>
     @if (vm.isNew) {
-      <h3>Новий шоп-айтем</h3>
+      <h3 class="title quick-preview-section-title">Нова страва</h3>
     } @else {
-      <h3>Шопайтем # {{ vm.formValue.id }}</h3>
+      <h3 class="title quick-preview-section-title">Товар № {{ vm.formValue.id }}</h3>
     }
   </header>
 

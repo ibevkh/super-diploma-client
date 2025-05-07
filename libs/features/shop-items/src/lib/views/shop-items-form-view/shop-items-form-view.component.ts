@@ -65,7 +65,7 @@ export class ShopItemsFormViewComponent {
       errors: this.errors(),
       formValid: this.formValid(),
       loading: this.loading(),
-      isNew: this.formValue().id === undefined,
+      isNew: this.formValue()?.id === 0,
     };
   });
 

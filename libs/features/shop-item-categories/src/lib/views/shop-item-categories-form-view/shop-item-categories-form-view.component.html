@@ -1,9 +1,9 @@
 <ib-container height="max-height" mode="flex">
   <header>
     @if (vm.isNew) {
-      <h3>Нова категорія</h3>
+      <h3 class="title quick-preview-section-title">Нова категорія</h3>
     } @else {
-      <h3>Категорія # {{ vm.formValue.id }}</h3>
+      <h3 class="title quick-preview-section-title">Категорія № {{ vm.formValue.id }}</h3>
     }
   </header>
 
@@ -19,7 +19,7 @@
 
     <ib-row ibWeb ibTablet ibHandset>
       <ib-column ibWeb ibTablet ibHandset>
-        <h4>Загальна інформація</h4>
+        <h4 class="title quick-preview-section-title">Загальна інформація</h4>
       </ib-column>
     </ib-row>
 
@@ -52,9 +52,9 @@
 
   <header>
     @if (vm.isNew) {
-      <h3>Нова категорія</h3>
+      <h3 class="title quick-preview-section-title">Нова категорія</h3>
     } @else {
-      <h3>Категорія # {{ vm.formValue.id }}</h3>
+      <h3 class="title quick-preview-section-title">Категорія № {{ vm.formValue.id }}</h3>
     }
   </header>
 </ib-container>
