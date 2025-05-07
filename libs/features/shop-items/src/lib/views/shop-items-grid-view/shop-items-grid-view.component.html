@@ -79,7 +79,7 @@
   @if (isPreviewVisible()) {
     <div class="preview-container">
       <div class="preview-header">
-        <span>Товар №: {{ preview().id }}</span>
+        <span class="title quick-preview-section-title">Товар №: {{ preview().id }}</span>
 
         <svg
           class="preview-close-button"
@@ -130,7 +130,7 @@
 
               <section class="section section--border-bottom">
                 <h4 class="title quick-preview-section-title">
-                  Опис
+                  Опис страви
                 </h4>
                 <div class="row-content">
                   <div class="field">
@@ -139,6 +139,19 @@
                     </span>
                   </div>
                 </div>
+              </section>
+
+              <section class="section section--border-bottom">
+              <h4 class="title quick-preview-section-title">
+                Ціна
+              </h4>
+              <div class="row-content">
+                <div class="field">
+                    <span class="field-value">
+                      {{ preview().price }}
+                    </span>
+                </div>
+              </div>
               </section>
 
             </div>

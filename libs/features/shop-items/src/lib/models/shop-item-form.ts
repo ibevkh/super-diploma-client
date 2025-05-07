@@ -6,6 +6,7 @@ export type ShopItemForm = DeepPartial<{
   description: string;
   state: number;
   image: string;
+  price: number;
   categoryId: number;
 }>;
 
@@ -15,6 +16,7 @@ export const shopItemFormShape: DeepRequired<ShopItemForm> = {
   name: '',
   state: 1,
   image: '',
+  price: 0,
   description: '',
 };
 
@@ -24,6 +26,7 @@ export const initialShopItemForm: ShopItemForm = {
   name: 'Новий шоп айтем',
   state: 1,
   image: undefined,
+  price: 0,
   description: undefined,
 };
 

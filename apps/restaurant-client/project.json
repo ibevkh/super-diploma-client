@@ -1,0 +1,98 @@
+{
+  "name": "restaurant-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "ib",
+  "sourceRoot": "apps/restaurant-client/src",
+  "tags": ["scope:client", "type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/restaurant-client",
+        "index": "apps/restaurant-client/src/index.html",
+        "browser": "apps/restaurant-client/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/restaurant-client/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/restaurant-client/public"
+          }
+        ],
+        "styles": ["apps/restaurant-client/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/restaurant-client/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/restaurant-client/server.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4201
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "restaurant-client:build:production"
+        },
+        "development": {
+          "buildTarget": "restaurant-client:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "restaurant-client:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/restaurant-client/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "restaurant-client:build",
+        "port": 4201,
+        "staticFilePath": "dist/apps/restaurant-client/browser",
+        "spa": true
+      }
+    }
+  }
+}

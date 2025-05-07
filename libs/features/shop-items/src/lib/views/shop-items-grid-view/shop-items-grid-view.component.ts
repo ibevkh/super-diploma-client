@@ -81,6 +81,7 @@ export class ShopItemsGridViewComponent implements OnInit {
     { columnName: 'state', headerName: 'Стан' },
     { columnName: 'categoryName', headerName: 'Категорія' },
     { columnName: 'categoryDescription', headerName: 'Опис категорії' },
+    { columnName: 'price', headerName: 'Ціна'},
   ];
 
   paginatorSettings = computed(() => ({

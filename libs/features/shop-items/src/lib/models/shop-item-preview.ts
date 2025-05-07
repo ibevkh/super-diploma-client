@@ -5,5 +5,6 @@ export type ShopItemPreview = {
   state: number;
   categoryName: string;
   categoryDescription: string;
+  price: number;
   image: string;
 }

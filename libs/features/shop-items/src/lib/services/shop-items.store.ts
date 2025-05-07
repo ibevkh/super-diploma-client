@@ -33,6 +33,7 @@ const initialForm: ShopItemForm = {
   name: '',
   description: '',
   image: 'test',
+  price: 0,
   state: undefined,
   categoryId: undefined,
 }
@@ -59,6 +60,7 @@ const initialState: ShopItemState = {
     state: 0,
     categoryName: '',
     categoryDescription: '',
+    price: 0,
     image: '',
   },
 

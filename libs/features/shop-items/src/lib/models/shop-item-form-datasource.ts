@@ -1,4 +1,4 @@
-import { DatasourceItem } from '../../../../../shared/core/model/src/lib/datasource-item';
+import { DatasourceItem } from '@ib/core/model';
 
 export type ShopItemFormDatasource = {
   categories: DatasourceItem[];
