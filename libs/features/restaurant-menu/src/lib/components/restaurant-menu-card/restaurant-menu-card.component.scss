@@ -1,3 +1,25 @@
+.category-card {
+  margin-bottom: 16px; /* Відступ між карткою категорії та товарними картками */
+  width: 100%; /* Розтягуємо на всю ширину */
+}
+
+.category-name-card {
+  width: 100%; /* Розтягуємо картку на всю ширину */
+  background-color: #B3D8FE; /* Світло-блакитний фон */
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: center; /* Відцентровуємо по горизонталі */
+  align-items: center; /* Відцентровуємо по вертикалі */
+}
+
+.category-name-card h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black; /* Темно-синій колір для заголовку категорії */
+  text-align: center; /* Відцентровуємо текст всередині */
+}
+
 .card-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -12,7 +34,7 @@
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  background-color: #bfd5ee; // ніжно-блакитний
+  background-color: #BFD5EE; /* Ніжно-блакитний */
   border-radius: 8px;
 
   mat-card-content {

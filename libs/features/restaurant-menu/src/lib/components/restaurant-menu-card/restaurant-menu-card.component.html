@@ -1,3 +1,11 @@
+<div class="category-card">
+  <mat-card class="category-name-card">
+    <mat-card-content>
+      <h2>{{ restaurantMenu().name }}</h2>
+    </mat-card-content>
+  </mat-card>
+</div>
+
 <div class="card-list">
   <ng-container *ngFor="let item of restaurantMenu().items">
     <mat-card class="menu-card" (click)="onClickMenu(restaurantMenu())">
