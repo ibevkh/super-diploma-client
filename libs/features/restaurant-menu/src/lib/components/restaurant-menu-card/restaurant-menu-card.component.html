@@ -1,0 +1,19 @@
+<div class="card-list">
+  <ng-container *ngFor="let item of restaurantMenu().items">
+    <mat-card class="menu-card" (click)="onClickMenu(restaurantMenu())">
+      <img mat-card-image [src]="item.image" alt="{{ item.name }}" />
+
+      <mat-card-content>
+        <p class="name">{{ item.name }}</p>
+        <p>Опис: {{ item.description }}</p>
+      </mat-card-content>
+
+      <mat-card-actions class="price-button">
+        <p class="price">{{ item.price }} ₴</p>
+        <button mat-icon-button color="primary" aria-label="Купити">
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>

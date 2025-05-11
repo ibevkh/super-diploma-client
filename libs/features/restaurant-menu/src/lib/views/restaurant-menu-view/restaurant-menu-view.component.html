@@ -1,0 +1,6 @@
+<div *ngFor="let restaurantMenu of list()">
+  <ib-restaurant-menu-card
+    [restaurantMenu]="restaurantMenu"
+    (restaurantMenuClick)="onClickMenu($event)">
+  </ib-restaurant-menu-card>
+</div>
