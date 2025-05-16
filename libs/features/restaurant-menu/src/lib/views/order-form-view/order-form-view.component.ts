@@ -2,9 +2,10 @@ import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormField, MatInput, MatInputModule, MatLabel } from '@angular/material/input';
-import { MatList, MatListItem } from '@angular/material/list';
+import { MatDivider, MatList, MatListItem } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { ContainerComponent } from '@ib/ui/container';
 import { ColumnComponent, HandsetDirective, RowComponent, TabletDirective, WebDirective } from '@ib/ui/grid';
@@ -36,6 +37,10 @@ import { createOrderRequestValidationConfig, createOrderRequestValidationSuite }
     MatButton,
     MatFormFieldModule,
     MatInputModule,
+    MatCard,
+    MatCardTitle,
+    MatDivider,
+    MatCardContent,
   ],
   templateUrl: './order-form-view.component.html',
   styleUrl: './order-form-view.component.scss',

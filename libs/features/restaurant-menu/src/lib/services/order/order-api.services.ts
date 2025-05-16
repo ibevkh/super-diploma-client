@@ -10,7 +10,7 @@ export class OrderApiService {
 
   readonly #baseUrl = 'https://localhost:7076/api/order';
   readonly #review = `${this.#baseUrl}/reviews`;
-  readonly #createOrder = `${this.#baseUrl}/createOrder`;
+  readonly #createOrder = `${this.#baseUrl}/create-order`;
 
   async getOrdersReview(
     filter: OrderGridFilterDto

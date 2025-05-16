@@ -8,24 +8,32 @@
 
   <!-- Список товарів замовлення -->
   <section class="order-items-section">
-    <h4 class="title quick-preview-section-title">Список товарів</h4>
-    @if (vm.items.length > 0) {
-      <div>
-        <mat-list>
+    <mat-card>
+      <mat-card-title>Список товарів</mat-card-title>
+      <mat-divider></mat-divider>
+
+      @if (vm.items.length > 0) {
+        <div class="order-items-table">
+          <div class="order-items-header mat-elevation-z2">
+            <div class="cell header">Назва товару</div>
+            <div class="cell header">Кількість</div>
+            <div class="cell header">Ціна</div>
+          </div>
+
           @for (item of vm.items; track item.shopItemId) {
-            <mat-list-item>
-              <div class="shopItemName">{{ item.shopItemName }} ₴</div>
-              <div class="item-quantity">{{ item.quantity }}</div>
-              <div class="item-price">{{ item.price }} ₴</div>
-            </mat-list-item>
+            <div class="order-items-row">
+              <div class="cell">{{ item.shopItemName }}</div>
+              <div class="cell">{{ item.quantity }}</div>
+              <div class="cell">{{ item.price }} ₴</div>
+            </div>
           }
-        </mat-list>
-      </div>
-    } @else {
-      <div>
-        <p>Товари відсутні.</p>
-      </div>
-    }
+        </div>
+      } @else {
+        <mat-card-content>
+          <p>Товари відсутні.</p>
+        </mat-card-content>
+      }
+    </mat-card>
   </section>
 
   <!-- Форма для інформації про клієнта -->

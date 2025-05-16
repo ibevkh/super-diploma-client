@@ -75,7 +75,15 @@ export const BasketStore = signalStore(
           item.menuItem.id === itemId
             ? { ...item, quantity: newQuantity }
             : item
-        )
+        ),
+        form: {
+          ...store.form(),
+          items: (store.form().items || []).map(item =>
+            item.shopItemId === itemId
+              ? { ...item, quantity: newQuantity }
+              : item
+          )
+        }
       });
     };
 
