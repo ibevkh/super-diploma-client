@@ -1,6 +1,24 @@
-<div *ngFor="let restaurantMenu of list()">
-  <ib-restaurant-menu-card
-    [restaurantMenu]="restaurantMenu"
-    (restaurantMenuClick)="onClickMenu($event)">
-  </ib-restaurant-menu-card>
+<div *ngFor="let category of categories()">
+
+  <div class="category-card">
+    <mat-card class="category-name-card">
+      <mat-card-content>
+        <h2>{{ category.name }}</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="card-list">
+
+    <ng-container *ngFor="let item of category.items">
+
+      <ib-restaurant-menu-card
+        [menuItem]="item"
+        (buyClick)="addToOrder($event)"
+        >
+      </ib-restaurant-menu-card>
+
+    </ng-container>
+
+  </div>
 </div>

@@ -1,0 +1,93 @@
+<p>order-form-view works!</p>
+<ib-container height="max-height" mode="flex">
+  <header>
+    @if (vm.isNew) {
+      <h3 class="title quick-preview-section-title">Нове замовлення</h3>
+    }
+  </header>
+
+  <!-- Список товарів замовлення -->
+  <section class="order-items-section">
+    <h4 class="title quick-preview-section-title">Список товарів</h4>
+    @if (vm.items.length > 0) {
+      <div>
+        <mat-list>
+          @for (item of vm.items; track item.shopItemId) {
+            <mat-list-item>
+              <div class="shopItemName">{{ item.shopItemName }} ₴</div>
+              <div class="item-quantity">{{ item.quantity }}</div>
+              <div class="item-price">{{ item.price }} ₴</div>
+            </mat-list-item>
+          }
+        </mat-list>
+      </div>
+    } @else {
+      <div>
+        <p>Товари відсутні.</p>
+      </div>
+    }
+  </section>
+
+  <!-- Форма для інформації про клієнта -->
+  <form scVestForm
+        (ngSubmit)="onSubmit()"
+        [formValue]="vm.formValue"
+        [validateRootForm]="true"
+        [formShape]="shape"
+        [suite]="suite"
+        [validationConfig]="validationConfig"
+        (validChange)="formValid.set($event || false)"
+        (errorsChange)="errors.set($event)">
+
+    <ib-row ibWeb ibTablet ibHandset>
+      <ib-column ibWeb ibTablet ibHandset>
+        <h4 class="title quick-preview-section-title">Дані замовника</h4>
+      </ib-column>
+    </ib-row>
+
+    <ib-row ibWeb ibTablet ibHandset>
+      <ib-column ibWeb="4" ibTablet="6" ibHandset="12">
+        <mat-form-field ibFullWidth>
+          <mat-label>Ім’я замовника</mat-label>
+          <input matInput [(ngModel)]="vm.formValue.customerName" name="customerName" type="text">
+          <mat-error>{{ vm.errors['customerName'] || '' }}</mat-error>
+        </mat-form-field>
+      </ib-column>
+
+      <ib-column ibWeb="4" ibTablet="6" ibHandset="12">
+        <mat-form-field ibFullWidth>
+          <mat-label>Номер телефону</mat-label>
+          <input matInput [(ngModel)]="vm.formValue.customerPhoneNumber" name="customerPhoneNumber" type="tel">
+          <mat-error>{{ vm.errors['customerPhoneNumber'] || '' }}</mat-error>
+        </mat-form-field>
+      </ib-column>
+
+      <ib-column ibWeb="4" ibTablet="12" ibHandset="12">
+        <mat-form-field ibFullWidth>
+          <mat-label>Адреса доставки</mat-label>
+          <input matInput [(ngModel)]="vm.formValue.deliveryAddress" name="deliveryAddress" type="text">
+          <mat-error>{{ vm.errors['deliveryAddress'] || '' }}</mat-error>
+        </mat-form-field>
+      </ib-column>
+    </ib-row>
+
+    <ib-row ibWeb ibTablet ibHandset>
+      <ib-column ibWeb="4" ibTablet="6" ibHandset="12">
+        <mat-form-field ibFullWidth>
+          <mat-label>Час доставки</mat-label>
+          <input matInput [(ngModel)]="vm.formValue.deliveryTime" name="deliveryTime" type="datetime-local">
+          <mat-error>{{ vm.errors['deliveryTime'] || '' }}</mat-error>
+        </mat-form-field>
+      </ib-column>
+    </ib-row>
+
+    <ib-row class="actions" ibWeb ibTablet ibHandset>
+      <ib-column ibWeb="2" ibTablet="3" ibHandset="6">
+        <button mat-button (click)="onCancelClick()" type="button">Скасувати</button>
+      </ib-column>
+      <ib-column ibWeb="2" ibTablet="3" ibHandset="6">
+        <button mat-stroked-button color="primary" type="submit">Зберегти</button>
+      </ib-column>
+    </ib-row>
+  </form>
+</ib-container>

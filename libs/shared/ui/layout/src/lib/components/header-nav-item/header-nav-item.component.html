@@ -1,0 +1,8 @@
+<button
+  mat-button
+  *ngIf="!item().children"
+  [routerLink]="item().route"
+>
+  <mat-icon *ngIf="item().icon">{{ item().icon }}</mat-icon>
+  {{ item().label }}
+</button>

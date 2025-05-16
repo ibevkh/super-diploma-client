@@ -1,27 +1,17 @@
-<div class="category-card">
-  <mat-card class="category-name-card">
-    <mat-card-content>
-      <h2>{{ restaurantMenu().name }}</h2>
-    </mat-card-content>
-  </mat-card>
-</div>
+<mat-card class="menu-card">
+  <img mat-card-image [src]="menuItem().image" alt="{{ menuItem().name }}" />
 
-<div class="card-list">
-  <ng-container *ngFor="let item of restaurantMenu().items">
-    <mat-card class="menu-card" (click)="onClickMenu(restaurantMenu())">
-      <img mat-card-image [src]="item.image" alt="{{ item.name }}" />
+  <mat-card-content>
+    <p class="name">{{ menuItem().name }}</p>
+    <p>Опис: {{ menuItem().description }}</p>
+  </mat-card-content>
 
-      <mat-card-content>
-        <p class="name">{{ item.name }}</p>
-        <p>Опис: {{ item.description }}</p>
-      </mat-card-content>
+  <mat-card-actions class="price-button">
+    <p class="price">{{ menuItem().price }} ₴</p>
+    <button mat-icon-button color="primary" aria-label="Купити" (click)="onBuyClick(menuItem())">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
 
-      <mat-card-actions class="price-button">
-        <p class="price">{{ item.price }} ₴</p>
-        <button mat-icon-button color="primary" aria-label="Купити">
-          <mat-icon>shopping_cart</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </ng-container>
-</div>
+

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardActions, MatCardContent, MatCardImage } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
-import { RestaurantMenuCategoryItem } from '../../models';
+import { RestaurantMenuItem } from '../../models';
 
 @Component({
   selector: 'ib-restaurant-menu-card',
@@ -22,10 +22,10 @@ import { RestaurantMenuCategoryItem } from '../../models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RestaurantMenuCardComponent {
-  restaurantMenu = input.required<RestaurantMenuCategoryItem>();
-  restaurantMenuClick = output<number>();
+  menuItem = input.required<RestaurantMenuItem>();
+  buyClick = output<RestaurantMenuItem>();
 
-  onClickMenu(categoryMenu: RestaurantMenuCategoryItem ) {
-    this.restaurantMenuClick.emit(categoryMenu.id);
+  onBuyClick(menuItem: RestaurantMenuItem) {
+    this.buyClick.emit(menuItem)
   }
 }

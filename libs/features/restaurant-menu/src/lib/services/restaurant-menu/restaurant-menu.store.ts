@@ -1,6 +1,6 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { inject } from '@angular/core';
-import { RestaurantMenuCategoryItem } from '../models';
+import { RestaurantMenuCategoryItem } from '../../models';
 import { RestaurantMenuApiService } from './restaurant-menu-api.service';
 import { RestaurantMenuMappingService } from './restaurant-menu-mapping.service';
 

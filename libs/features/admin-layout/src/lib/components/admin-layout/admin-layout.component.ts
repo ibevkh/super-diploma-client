@@ -11,6 +11,7 @@ import { AdminLayoutService } from '../../services/admin-layout.service';
   styleUrl: './admin-layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class AdminLayoutComponent implements OnInit {
   #adminLayoutService = inject(AdminLayoutService);
 

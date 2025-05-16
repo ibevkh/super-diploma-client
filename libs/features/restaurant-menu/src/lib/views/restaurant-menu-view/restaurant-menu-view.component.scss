@@ -1,0 +1,72 @@
+.category-card {
+  margin-bottom: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ Центруємо вміст по горизонталі */
+}
+
+.category-name-card {
+  width: 100%;
+  max-width: 800px; /* ✅ Додаємо обмеження ширини для краси */
+  background-color: #e3f0ff;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.category-name-card h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  margin: 0;
+}
+
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+  justify-content: center; /* ✅ Центрує всю сітку */
+  padding: 16px;
+  width: 100%;
+  max-width: 1200px; /* ✅ Додаємо обмеження ширини */
+  margin: 0 auto; /* Центрує контейнер */
+}
+
+.menu-card {
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background-color: #BFD5EE;
+  border-radius: 8px;
+
+  mat-card-content {
+    padding: 12px 16px;
+  }
+
+  .name {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+    text-align: center; /* ✅ Назва по центру */
+  }
+
+  .price-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px 16px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}

@@ -19,6 +19,9 @@
       "@ib/core/model": ["libs/shared/core/model/src/index.ts"],
       "@ib/feat/admin-layout": ["libs/features/admin-layout/src/index.ts"],
       "@ib/feat/categories": ["libs/features/shop-items/src/index.ts"],
+      "@ib/feat/client-layout": [
+        "libs/features/client-layout/client-layout/src/index.ts"
+      ],
       "@ib/feat/restaurant-menu": [
         "libs/features/restaurant-menu/src/index.ts"
       ],

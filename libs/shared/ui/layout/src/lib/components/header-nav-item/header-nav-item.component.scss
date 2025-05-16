@@ -1,0 +1,22 @@
+/* Стиль для кнопки в меню */
+button.mat-button {
+  font-size: 20px; /* Розмір шрифту */
+  color: white; /* Колір тексту */
+  text-transform: none; /* Без великих літер */
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Між іконкою та текстом */
+  padding: 8px 16px; /* Відступи */
+  transition: background-color 0.3s ease; /* Анімація при наведенні */
+}
+
+/* Стиль при наведенні на кнопку */
+button.mat-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Легке затемнення при наведенні */
+}
+
+/* Стиль для іконки */
+mat-icon {
+  font-size: 20px; /* Розмір іконки */
+  vertical-align: middle; /* Вирівнювання іконки по вертикалі */
+}

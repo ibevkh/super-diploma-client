@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <ng-container *ngFor="let item of menuItems()">
+    <ib-header-nav-item [item]="item" />
+  </ng-container>
+</mat-toolbar>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

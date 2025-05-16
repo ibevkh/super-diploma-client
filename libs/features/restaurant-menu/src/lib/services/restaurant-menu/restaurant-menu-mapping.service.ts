@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { RestaurantMenuCategoryItemDto } from '../dtos';
-import { RestaurantMenuCategoryItem } from '../models';
+import { RestaurantMenuCategoryItemDto } from '../../dtos';
+import { RestaurantMenuCategoryItem } from '../../models';
 
 @Injectable({ providedIn: 'root' })
 export class RestaurantMenuMappingService {
