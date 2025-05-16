@@ -8,36 +8,36 @@
 
   <!-- Список товарів замовлення -->
   <section class="order-items-section">
-    <mat-card>
-      <mat-card-title>Список товарів</mat-card-title>
-      <mat-divider></mat-divider>
+    <h3 class="title quick-preview-section-title">Список товарів</h3>
 
-      @if (vm.items.length > 0) {
-        <div class="order-items-table">
-          <div class="order-items-header mat-elevation-z2">
-            <div class="cell header">Назва товару</div>
-            <div class="cell header">Кількість</div>
-            <div class="cell header">Ціна</div>
-          </div>
-
-          @for (item of vm.items; track item.shopItemId) {
-            <div class="order-items-row">
-              <div class="cell">{{ item.shopItemName }}</div>
-              <div class="cell">{{ item.quantity }}</div>
-              <div class="cell">{{ item.price }} ₴</div>
-            </div>
+    @if (vm.items.length > 0) {
+      <div class="order-table-wrapper">
+        <table mat-table [dataSource]="vm.items" class="order-table mat-elevation-z2">
+          @for (conf of columnsConfig; track conf.columnName) {
+            <ng-container matColumnDef="{{ conf.columnName }}">
+              <th mat-header-cell *matHeaderCellDef>{{ conf.headerName }}</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element[conf.columnName] }}
+                @if (conf.columnName === 'price') {
+                  ₴
+                }
+              </td>
+            </ng-container>
           }
-        </div>
-      } @else {
-        <mat-card-content>
-          <p>Товари відсутні.</p>
-        </mat-card-content>
-      }
-    </mat-card>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    } @else {
+      <p>Товари відсутні.</p>
+    }
   </section>
 
   <!-- Форма для інформації про клієнта -->
-  <form scVestForm
+  <div class="order-table-wrapper">
+  <form class="customer-form"
+        scVestForm
         (ngSubmit)="onSubmit()"
         [formValue]="vm.formValue"
         [validateRootForm]="true"
@@ -98,4 +98,5 @@
       </ib-column>
     </ib-row>
   </form>
+  </div>
 </ib-container>

@@ -1,6 +1,6 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import { OrderItemGrid, OrderRequest, RestaurantMenuItem } from '../models';
+import { OrderRequest, RestaurantMenuItem } from '../models';
 import { BasketItem } from '../models/basket-item';
 import { OrderApiService } from './order/order-api.services';
 import { OrderMappingServices } from './order/order-mapping.services';
@@ -78,11 +78,12 @@ export const BasketStore = signalStore(
         ),
         form: {
           ...store.form(),
-          items: (store.form().items || []).map(item =>
-            item.shopItemId === itemId
-              ? { ...item, quantity: newQuantity }
-              : item
-          )
+          items: store.items().map(item => ({
+            shopItemId: item.menuItem.id,
+            shopItemName: item.menuItem.name,
+            quantity: item.menuItem.id === itemId ? newQuantity : item.quantity,
+            price: item.menuItem.price * (item.menuItem.id === itemId ? newQuantity : item.quantity),
+          })),
         }
       });
     };

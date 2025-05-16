@@ -22,6 +22,7 @@
       "@ib/feat/client-layout": [
         "libs/features/client-layout/client-layout/src/index.ts"
       ],
+      "@ib/feat/order-list": ["libs/features/order-list/src/index.ts"],
       "@ib/feat/restaurant-menu": [
         "libs/features/restaurant-menu/src/index.ts"
       ],

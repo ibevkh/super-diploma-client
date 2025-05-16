@@ -3,19 +3,13 @@ import {
   Component,
   OnInit,
   inject,
-  computed
+  computed,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { ShopItemCategoryStore } from '../../services';
-
-import {
-  MatToolbarModule
-} from '@angular/material/toolbar';
-import {
-  MatButton,
-  MatIconButton
-} from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import {
   MatTable,
   MatHeaderCell,
@@ -30,11 +24,9 @@ import {
   MatFooterRow,
   MatHeaderRowDef,
   MatRowDef,
-  MatFooterRowDef
+  MatFooterRowDef,
 } from '@angular/material/table';
-import {
-  MatPaginator
-} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -93,7 +85,7 @@ export class ShopItemCategoryGridViewComponent implements OnInit {
   }
 
   async onDeleteClick(id: number): Promise<void> {
-    console.log("!!!", id);
+    console.log('!!!', id);
     console.log('ID переданий у onDeleteClick:', id);
     if (id === undefined) {
       console.error('ID undefined! Можливо, обʼєкт не має id');

@@ -1,9 +1,10 @@
 import {
   ChangeDetectionStrategy,
-  Component, computed,
+  Component,
+  computed,
   inject,
   OnInit,
-  signal
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,11 +14,18 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {
   MatCell,
   MatCellDef,
-  MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef,
+  MatColumnDef,
+  MatFooterCell,
+  MatFooterCellDef,
+  MatFooterRow,
+  MatFooterRowDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
@@ -81,7 +89,7 @@ export class ShopItemsGridViewComponent implements OnInit {
     { columnName: 'state', headerName: 'Стан' },
     { columnName: 'categoryName', headerName: 'Категорія' },
     { columnName: 'categoryDescription', headerName: 'Опис категорії' },
-    { columnName: 'price', headerName: 'Ціна'},
+    { columnName: 'price', headerName: 'Ціна' },
   ];
 
   paginatorSettings = computed(() => ({

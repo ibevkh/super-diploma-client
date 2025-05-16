@@ -2,7 +2,16 @@
   mat-button
   *ngIf="!item().children"
   [routerLink]="item().route"
+  [style.padding-right]="item().badge() > 0 ? '25px' : null"
 >
-  <mat-icon *ngIf="item().icon">{{ item().icon }}</mat-icon>
+  <mat-icon *ngIf="item().icon">
+    {{ item().icon }}
+  </mat-icon>
   {{ item().label }}
+  @if (item().badge() > 0) {
+    <span class="badge"
+          [matBadge]="item().badge()"
+          matBadgeOverlap="false">
+    </span>
+  }
 </button>

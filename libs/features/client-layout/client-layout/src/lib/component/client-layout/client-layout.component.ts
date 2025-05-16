@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { HeaderComponent } from '../../../../../../../shared/ui/layout/src/lib/components/header/header.component';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { HeaderNavItem } from '../../../../../../../shared/ui/layout/src/lib/model/header-nav-item.model';
 import { ClientLayoutService } from '../../services/client-layout.service';
 

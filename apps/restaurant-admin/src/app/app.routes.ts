@@ -9,4 +9,8 @@ export const appRoutes: Route[] = [
     path: 'categories',
     loadChildren: () => import('@ib/feat/shop-item-categories').then(m => m.shopItemCategoriesRoutes),
   },
+  {
+    path: 'order-list',
+    loadChildren: () => import('@ib/feat/order-list').then(m => m.orderListRoutes),
+  }
 ];

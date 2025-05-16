@@ -1,4 +1,5 @@
 import { DeepPartial, DeepRequired } from 'ngx-vest-forms';
+import { RestaurantMenuItem } from '../../../../restaurant-menu/src/lib/models/restaurant-menu/restaurant-menu-item';
 import { OrderItemGrid } from './order-item-grid';
 
 export type OrderRequest = DeepPartial<{
