@@ -6,5 +6,6 @@ export type OrderRequestDto = {
   customerPhoneNumber: string;
   deliveryAddress: string;
   deliveryTime: string;
+  totalAmount: number;
   items: OrderItemGridDto[];
 }

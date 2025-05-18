@@ -23,6 +23,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { MatToolbarRow } from '@angular/material/toolbar';
 import { OrderListStore } from '../services/order-list.store';
 
 @Component({
@@ -44,6 +45,7 @@ import { OrderListStore } from '../services/order-list.store';
     MatHeaderCell,
     MatHeaderCellDef,
     MatCellDef,
+    MatToolbarRow,
   ],
   templateUrl: './order-list-view.component.html',
   styleUrl: './order-list-view.component.scss',
@@ -54,13 +56,20 @@ export class OrderListViewComponent implements OnInit {
   readonly orders = this.#store.orders;
   // readonly items = this.orders.items;
 
-  columnsConfig: { columnName: string, headerName: string, columnType?: string }[] = [
+  columnsConfig: {
+    columnName: string;
+    headerName: string;
+    columnType?: string;
+  }[] = [
     { columnName: 'customerName', headerName: 'Замовник' },
     { columnName: 'customerPhoneNumber', headerName: 'Телефон' },
-    { columnName: 'customerAddress', headerName: 'Адреса' },
-    { columnName: 'deliveryTime', headerName: 'Час доставки', columnType: 'date' },
+    { columnName: 'deliveryAddress', headerName: 'Адреса' },
+    {
+      columnName: 'deliveryTime',
+      headerName: 'Час доставки',
+      columnType: 'date',
+    },
     { columnName: 'itemNames', headerName: 'Товари' },
-    { columnName: 'quantity', headerName: 'Кількість' },
     { columnName: 'totalAmount', headerName: 'Вартість' },
   ];
 

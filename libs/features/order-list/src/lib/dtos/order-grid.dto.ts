@@ -4,8 +4,9 @@ export type OrderGridDto = {
   id: number;
   customerName: string;
   customerPhoneNumber: string;
-  customerAddress: string;
+  deliveryAddress: string;
   createdAt: string;
   deliveryTime: string;
+  totalAmount: number;
   items: OrderItemGridDto[];
 }

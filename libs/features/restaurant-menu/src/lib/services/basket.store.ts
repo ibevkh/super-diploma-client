@@ -16,6 +16,7 @@ const initialForm: OrderRequest = {
   customerPhoneNumber: '',
   deliveryAddress: '',
   deliveryTime: '',
+  totalAmount: 0,
   items: [],
 };
 
@@ -28,10 +29,15 @@ export const BasketStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withComputed(({ items }) => ({
-    itemCount: computed(() => items().length),
+    itemCount: computed(() =>
+      items().reduce((sum, item) => sum + item.quantity, 0)
+    ),
     totalCost: computed(() =>
       items().reduce((sum, basketItem) => sum + basketItem.menuItem.price * basketItem.quantity, 0)
-    )
+    ),
+    // totalAmount: computed(() =>
+    //   items().reduce((sum, item) => sum + item.menuItem.price * item.quantity, 0)
+    // )
   })),
   withMethods((store) => {
     const _api = inject(OrderApiService);
@@ -42,48 +48,60 @@ export const BasketStore = signalStore(
       if (existingItem) {
         await updateQuantity(menuItem.id, existingItem.quantity + 1);
       } else {
+        const newItem: BasketItem = {
+          menuItem,
+          quantity: 1,
+        };
+        const updatedItems = [...store.items(), newItem];
+
         patchState(store, {
-          items: [...store.items(), { menuItem, quantity: 1 }],
-          // form: { ...store.form(), items: [
-          //     ...store.items().map(item => ({
-          //       shopItemId: item.menuItem.id,
-          //       shopItemName: item.menuItem.name,
-          //       quantity: item.quantity,
-          //       price: item.menuItem.price,
-          //     })),
-          //   ]}
+          items: updatedItems,
           form: {
             ...store.form(),
-            items: [
-              ...(store.form().items || []),
-              {
-                shopItemId: menuItem.id,
-                shopItemName: menuItem.name,
-                quantity: 1,
-                price: menuItem.price,
-              },
-            ],
+            items: updatedItems.map(item => ({
+              shopItemId: item.menuItem.id,
+              shopItemName: item.menuItem.name,
+              quantity: item.quantity,
+              price: item.menuItem.price,
+            })),
+            totalAmount: updatedItems.reduce(
+              (sum, item) => sum + item.menuItem.price * item.quantity,
+              0
+            ),
           },
         });
-        console.log('!!!', store.form());
       }
     };
-
     const updateQuantity = async (itemId: number, newQuantity: number) => {
+      const updatedItems = store.items().map(item =>
+        item.menuItem.id === itemId
+          ? {
+            ...item,
+            quantity: newQuantity,
+            totalAmount: item.menuItem.price * newQuantity,
+          }
+          : item
+      );
+
       patchState(store, {
-        items: store.items().map(item =>
-          item.menuItem.id === itemId
-            ? { ...item, quantity: newQuantity }
-            : item
-        ),
+        items: updatedItems,
         form: {
           ...store.form(),
-          items: store.items().map(item => ({
-            shopItemId: item.menuItem.id,
-            shopItemName: item.menuItem.name,
-            quantity: item.menuItem.id === itemId ? newQuantity : item.quantity,
-            price: item.menuItem.price * (item.menuItem.id === itemId ? newQuantity : item.quantity),
-          })),
+          // items: updatedItems.map(item => ({
+          //   shopItemId: item.menuItem.id,
+          //   shopItemName: item.menuItem.name,
+          //   quantity: item.quantity,
+          //   price: item.menuItem.price,
+          // })),
+          items: (store.form().items || []).map(item =>
+            item.shopItemId === itemId
+              ? { ...item, quantity: newQuantity }
+              : item
+          ),
+          totalAmount: updatedItems.reduce(
+            (sum, item) => sum + item.menuItem.price * item.quantity,
+            0
+          ),
         }
       });
     };

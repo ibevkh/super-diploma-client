@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconButton } from '@angular/material/button';
-import { MatCard, MatCardActions, MatCardContent, MatCardImage } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
+import { MatCard, MatCardContent } from '@angular/material/card';
 import { RestaurantMenuCardComponent } from '../../components';
 import { RestaurantMenuItem } from '../../models';
 import { RestaurantMenuStore } from '../../services';
@@ -13,11 +11,7 @@ import { BasketStore } from '../../services/basket.store';
   imports: [
     CommonModule,
     MatCard,
-    MatCardActions,
     MatCardContent,
-    MatCardImage,
-    MatIcon,
-    MatIconButton,
     RestaurantMenuCardComponent,
   ],
   templateUrl: './restaurant-menu-view.component.html',

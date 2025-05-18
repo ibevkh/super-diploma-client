@@ -86,6 +86,8 @@ export class ShopItemsFormViewComponent {
   }
 
   async onSubmit() {
+    console.log('!!!', this.vm, this.validationConfig, this.suite);
+    return;
     if (this.formValid()) {
       console.log('Submitting...', this.formValue());
       await this.#store.createOrUpdateItem();

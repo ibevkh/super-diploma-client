@@ -1,5 +1,4 @@
 import { DeepPartial, DeepRequired } from 'ngx-vest-forms';
-import { RestaurantMenuItem } from '../../../../restaurant-menu/src/lib/models/restaurant-menu/restaurant-menu-item';
 import { OrderItemGrid } from './order-item-grid';
 
 export type OrderRequest = DeepPartial<{
@@ -8,6 +7,7 @@ export type OrderRequest = DeepPartial<{
   customerPhoneNumber: string;
   deliveryAddress: string;
   deliveryTime: string;
+  totalAmount: number;
   items: OrderItemGrid[];
 }>;
 
@@ -17,6 +17,7 @@ export const OrderRequestFormShape: DeepRequired<OrderRequest> = {
   customerPhoneNumber: '',
   deliveryAddress: '',
   deliveryTime: '',
+  totalAmount: 0,
   items: [],
 };
 
@@ -26,5 +27,6 @@ export const initialOrderRequestForm: OrderRequest = {
   customerPhoneNumber: undefined,
   deliveryAddress: undefined,
   deliveryTime: undefined,
+  totalAmount: 0,
   items: [],
 };

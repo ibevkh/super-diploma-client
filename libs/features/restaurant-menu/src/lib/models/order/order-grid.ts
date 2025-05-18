@@ -4,7 +4,8 @@ export type OrderGrid = {
   id: number;
   customerName: string;
   customerPhoneNumber: string;
-  customerAddress: string;
+  deliveryAddress: string;
   createdAt: string;
+  totalAmount: number;
   items: OrderItemGrid[];
 }

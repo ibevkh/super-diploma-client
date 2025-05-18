@@ -22,11 +22,21 @@
                   ₴
                 }
               </td>
+              <!-- Підсумковий рядок -->
+              <td mat-footer-cell *matFooterCellDef>
+                @if (conf.columnName === 'shopItemName') {
+                  <strong>Загальна сума:</strong>
+                }
+                @if (conf.columnName === 'price') {
+                  <strong>{{ vm.totalAmount }} ₴</strong>
+                }
+              </td>
             </ng-container>
           }
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
         </table>
       </div>
     } @else {
