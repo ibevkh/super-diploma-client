@@ -63,7 +63,6 @@ import { MatOption, MatSelect } from '@angular/material/select';
     MatFooterCell,
     MatFooterRow,
     MatFooterRowDef,
-    MatInput,
     MatProgressSpinner,
   ],
   templateUrl: './shop-items-grid-view.component.html',
@@ -89,7 +88,7 @@ export class ShopItemsGridViewComponent implements OnInit {
     { columnName: 'state', headerName: 'Стан' },
     { columnName: 'categoryName', headerName: 'Категорія' },
     { columnName: 'categoryDescription', headerName: 'Опис категорії' },
-    { columnName: 'price', headerName: 'Ціна' },
+    // { columnName: 'price', headerName: 'Ціна' },
   ];
 
   paginatorSettings = computed(() => ({

@@ -1,14 +1,11 @@
-<p>order-form-view works!</p>
 <ib-container height="max-height" mode="flex">
   <header>
-    @if (vm.isNew) {
-      <h3 class="title quick-preview-section-title">Нове замовлення</h3>
-    }
+      <h3>Нове замовлення</h3>
   </header>
 
   <!-- Список товарів замовлення -->
   <section class="order-items-section">
-    <h3 class="title quick-preview-section-title">Список товарів</h3>
+    <h3>Список товарів</h3>
 
     @if (vm.items.length > 0) {
       <div class="order-table-wrapper">

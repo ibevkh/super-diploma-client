@@ -17,5 +17,9 @@ export const createShopItemCategoryValidationSuite = () => {
     test('name', 'Поле необхідно заповнити!:)', () => {
       enforce(model.name).isNotBlank();
     });
+
+    test('description', 'Поле необхідно заповнити!:)', () => {
+      enforce(model.name).isNotBlank();
+    });
   });
 };

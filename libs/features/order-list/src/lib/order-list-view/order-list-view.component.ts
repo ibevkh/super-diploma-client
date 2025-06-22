@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
   MatCell,
@@ -23,7 +24,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatToolbarRow } from '@angular/material/toolbar';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { OrderListStore } from '../services/order-list.store';
 
 @Component({
@@ -46,6 +47,8 @@ import { OrderListStore } from '../services/order-list.store';
     MatHeaderCellDef,
     MatCellDef,
     MatToolbarRow,
+    MatButton,
+    MatToolbar,
   ],
   templateUrl: './order-list-view.component.html',
   styleUrl: './order-list-view.component.scss',

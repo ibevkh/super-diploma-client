@@ -86,16 +86,9 @@ export class ShopItemsFormViewComponent {
   }
 
   async onSubmit() {
-    console.log('!!!', this.vm, this.validationConfig, this.suite);
-    return;
-    if (this.formValid()) {
-      console.log('Submitting...', this.formValue());
       await this.#store.createOrUpdateItem();
       await this.#store.resetForm();
       await this.#router.navigate(['shop-items']);
-    } else {
-      console.log('Not valid...', this.errors(), this.formValue());
-    }
   }
 
   async onCancelClick() {

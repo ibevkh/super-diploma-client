@@ -18,15 +18,30 @@ export const createOrderRequestValidationSuite = () => {
       enforce(model.customerName).isNotBlank();
     });
 
-    test('deliveryTime', 'Час доставки повинен бути валідною датою і не пізніше, ніж через тиждень від сьогодні!', () => {
+    test('customerPhoneNumber', 'Номер телефону необхідно заповнити! :)', () => {
+      enforce(model.customerPhoneNumber).isNotBlank();
+      // Можна додати перевірку формату номера телефону
+      enforce(model.customerPhoneNumber).matches(/^\+?\d{10,15}$/);
+    });
+
+    test('deliveryAddress', 'Адреса доставки необхідна! :)', () => {
+      enforce(model.deliveryAddress).isNotBlank();
+    });
+
+    test('deliveryTime', 'Дата доставки не може бути пізніше ніж через 7 днів від сьогодні :) ',  () => {
+      enforce(model.deliveryTime).isNotBlank();
+
       if (model.deliveryTime) {
         const deliveryDate = new Date(model.deliveryTime);
         const now = new Date();
-        const oneWeekLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+        const maxDate = new Date();
+        maxDate.setDate(now.getDate() + 7); // сьогодні + 7 днів
 
-        const isValid = !isNaN(deliveryDate.getTime());
-        enforce(isValid)['isTrue']('Невірний формат дати');
-        enforce(deliveryDate.getTime())['lessThanOrEqual'](oneWeekLater.getTime());
+        const isValidDate = !isNaN(deliveryDate.getTime());
+        const isWithin7Days = deliveryDate <= maxDate;
+
+        enforce(isValidDate).equals(true);
+        enforce(isWithin7Days).equals(true, 'Дата доставки не може бути пізніше ніж через 7 днів від сьогодні');
       }
     });
   });

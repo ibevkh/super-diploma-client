@@ -30,10 +30,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 24px;
-  justify-content: center; /* ✅ Центрує всю сітку */
+  justify-content: center; /* Центрує всю сітку */
   padding: 16px;
   width: 100%;
-  max-width: 1200px; /* ✅ Додаємо обмеження ширини */
+  max-width: 1200px; /* Додаємо обмеження ширини */
   margin: 0 auto; /* Центрує контейнер */
 }
 
@@ -54,7 +54,7 @@
     font-weight: bold;
     font-size: 1.1em;
     margin-bottom: 4px;
-    text-align: center; /* ✅ Назва по центру */
+    text-align: center; /* Назва по центру */
   }
 
   .price-button {

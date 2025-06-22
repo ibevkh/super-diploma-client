@@ -5,7 +5,7 @@ import { SidenavItem } from '@ib/ui/layout';
 export class AdminLayoutService {
   getMenuItems(): SidenavItem[] {
     return [
-      { label: 'Home', icon: 'home', route: '' },
+      // { label: 'Home', icon: 'home', route: '' },
       { label: 'Categories', icon: 'category', route: 'categories' },
       { label: 'ShopItems', icon: 'shopping', route: 'shop-items' },
       { label: 'OrderList', icon: 'list', route: 'order-list' },

@@ -86,8 +86,12 @@ export class OrderFormViewComponent {
     const form = this.formValue();
     const items = form.items || [];
 
+    // const totalAmount = items.reduce(
+    //   (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 0),
+    //   0
+    // );
     const totalAmount = items.reduce(
-      (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 0),
+      (sum, item) => sum + (item.price ?? 0),
       0
     );
 
@@ -117,7 +121,7 @@ export class OrderFormViewComponent {
       await this.#store.createOrder();
       this.loading.set(false);
       await this.#router.navigate(['']);
-      console.log('Form submitted');
+      console.log('Form submitted', this.formValue().totalAmount);
     } else {
       console.warn('Invalid form:', this.errors(), this.formValue());
     }

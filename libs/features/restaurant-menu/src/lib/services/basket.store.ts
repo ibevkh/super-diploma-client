@@ -62,10 +62,14 @@ export const BasketStore = signalStore(
               shopItemId: item.menuItem.id,
               shopItemName: item.menuItem.name,
               quantity: item.quantity,
-              price: item.menuItem.price,
+              price: item.menuItem.price * item.quantity,
             })),
+            // totalAmount: updatedItems.reduce(
+            //   (sum, item) => sum + item.menuItem.price * item.quantity,
+            //   0
+            // ),
             totalAmount: updatedItems.reduce(
-              (sum, item) => sum + item.menuItem.price * item.quantity,
+              (sum, item) => sum + item.menuItem.price,
               0
             ),
           },
@@ -78,7 +82,9 @@ export const BasketStore = signalStore(
           ? {
             ...item,
             quantity: newQuantity,
-            totalAmount: item.menuItem.price * newQuantity,
+            price: item.menuItem.price * newQuantity,
+            // totalAmount: item.menuItem.price * newQuantity,
+            totalAmount: item.menuItem.price,
           }
           : item
       );
@@ -87,22 +93,22 @@ export const BasketStore = signalStore(
         items: updatedItems,
         form: {
           ...store.form(),
-          // items: updatedItems.map(item => ({
-          //   shopItemId: item.menuItem.id,
-          //   shopItemName: item.menuItem.name,
-          //   quantity: item.quantity,
-          //   price: item.menuItem.price,
-          // })),
-          items: (store.form().items || []).map(item =>
-            item.shopItemId === itemId
-              ? { ...item, quantity: newQuantity }
-              : item
-          ),
+          items: updatedItems.map(item => ({
+            shopItemId: item.menuItem.id,
+            shopItemName: item.menuItem.name,
+            quantity: item.quantity,
+            // price: item.menuItem.price * item.quantity, це неправильно працює чогось
+            price: item.menuItem.price * item.quantity
+          })),
+          // totalAmount: updatedItems.reduce(
+          //   (sum, item) => sum + item.menuItem.price * item.quantity,
+          //   0
+          // ),
           totalAmount: updatedItems.reduce(
-            (sum, item) => sum + item.menuItem.price * item.quantity,
+            (sum, item) => sum + item.menuItem.price,
             0
           ),
-        }
+        },
       });
     };
 
@@ -112,13 +118,14 @@ export const BasketStore = signalStore(
       });
     };
 
-    const cleanBasket = async () => {
+    const clearBasket = async () => {
       patchState(store, { items: [] });
     };
 
     const createOrder = async () => {
       const order = _mapper.mapOrderRequestToDto(store.form());
       await _api.createOrder(order);
+      await clearBasket();
       await resetForm();
     }
 
@@ -130,7 +137,7 @@ export const BasketStore = signalStore(
       addItem,
       updateQuantity,
       removeItem,
-      cleanBasket,
+      cleanBasket: clearBasket,
       createOrder,
       resetForm,
     };

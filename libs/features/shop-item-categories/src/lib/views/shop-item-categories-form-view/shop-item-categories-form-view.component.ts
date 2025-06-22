@@ -6,7 +6,6 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
@@ -14,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ContainerComponent } from '@ib/ui/container';
 import { ColumnComponent, HandsetDirective, RowComponent, TabletDirective, WebDirective } from '@ib/ui/grid';
 import { FullWidthDirective } from '@ib/ui/width';
-import { FormDirective, ValidateRootFormDirective } from 'ngx-vest-forms';
+import { vestForms } from 'ngx-vest-forms';
 import { shopItemCategoryFormShape } from '../../models';
 import { ShopItemCategoryStore } from '../../services';
 import {
@@ -28,11 +27,10 @@ import {
   templateUrl: './shop-item-categories-form-view.component.html',
   styleUrl: './shop-item-categories-form-view.component.scss',
   imports: [
+    vestForms,
     CommonModule,
     MatButtonModule,
     ContainerComponent,
-    FormDirective,
-    FormsModule,
     RowComponent,
     ColumnComponent,
     WebDirective,
@@ -41,7 +39,6 @@ import {
     FullWidthDirective,
     MatFormField,
     MatInput,
-    ValidateRootFormDirective,
     MatLabel,
     MatFormFieldModule,
   ],

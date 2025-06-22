@@ -36,6 +36,7 @@
         <mat-form-field ibFullWidth>
           <mat-label>Опис</mat-label>
           <input matInput [(ngModel)]="vm.formValue.description" name="description" type="text">
+          <mat-error>{{ vm.errors['name'] || '' }}</mat-error>
         </mat-form-field>
       </ib-column>
     </ib-row>
