@@ -8,7 +8,7 @@ import { ShopItemCategoryFormDto, ShopItemCategoryGridDto, ShopItemCategoryGridF
 export class ShopItemCategoriesApiService {
   readonly #http = inject(HttpClient);
 
-  readonly #baseShopItemCategoryUrl = 'https://localhost:7076/api/shop-items-category';
+  readonly #baseShopItemCategoryUrl = 'http://localhost:5001/api/shop-items-category';
   readonly #gridShopItemCategoryUrl = `${this.#baseShopItemCategoryUrl}/list`;
 
   async getFilteredListCategory(

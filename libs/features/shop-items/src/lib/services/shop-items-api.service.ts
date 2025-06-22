@@ -14,7 +14,7 @@ import {
 export class ShopItemApiService {
   readonly #http = inject(HttpClient);
 
-  readonly #baseShopItemUrl = 'https://localhost:7076/api/shop-items';
+  readonly #baseShopItemUrl = 'http://localhost:5001/api/shop-items';
   readonly #filteredGridUrl = `${this.#baseShopItemUrl}/filtered-grid`;
   readonly #gridDataSource = `${this.#baseShopItemUrl}/grid-datasources`;
   readonly #preview = `${this.#baseShopItemUrl}/preview`;

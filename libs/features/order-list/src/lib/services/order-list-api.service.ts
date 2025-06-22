@@ -9,7 +9,7 @@ import { OrderGridDto } from '../dtos/order-grid.dto';
 export class OrderListApiService {
   readonly #http = inject(HttpClient);
 
-  readonly #baseUrl = 'https://localhost:7076/api/order';
+  readonly #baseUrl = 'http://localhost:5001/api/order';
   readonly #review = `${this.#baseUrl}/review`;
 
   async getOrdersReview(

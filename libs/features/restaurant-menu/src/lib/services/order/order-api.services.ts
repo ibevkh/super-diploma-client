@@ -7,7 +7,7 @@ import {  OrderRequestDto } from '../../dtos';
 export class OrderApiService {
   readonly #http = inject(HttpClient);
 
-  readonly #baseUrl = 'https://localhost:7076/api/order';
+  readonly #baseUrl = 'http://localhost:5001/api/order';
   readonly #createOrder = `${this.#baseUrl}/create-order`;
 
   async createOrder(orderRequest: OrderRequestDto): Promise<OrderRequestDto> {

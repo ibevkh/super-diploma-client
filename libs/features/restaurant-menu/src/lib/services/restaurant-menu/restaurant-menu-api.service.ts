@@ -7,7 +7,7 @@ import { RestaurantMenuCategoryItemDto } from '../../dtos';
 export class RestaurantMenuApiService {
   readonly #http = inject(HttpClient);
 
-  readonly #baseUrl = 'https://localhost:7076/api/restaurant-menu';
+  readonly #baseUrl = 'http://localhost:5001/api/restaurant-menu';
 
   async getRestaurantMenu(): Promise<RestaurantMenuCategoryItemDto[]> {
     return await firstValueFrom(
